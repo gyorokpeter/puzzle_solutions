@@ -13,7 +13,7 @@ for tc in range(t):
     print(" ".join(map(str,nums)))
     sys.stdout.flush()
 
-    nums += [int(s) for s in input().split(" ")]
+    nums += [s for s in input().split(" ")]
     nums.sort()
     nums.reverse()
     r = []
