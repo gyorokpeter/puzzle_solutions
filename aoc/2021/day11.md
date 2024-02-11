@@ -1,14 +1,14 @@
 # Breakdown
 Example input:
 ```q
-x:"5483143223\n2745854711\n5264556173\n6141336146\n6357385478\n4167524645\n2176";
-x,:"841721\n6882881134\n4846848554\n5283751526";
+x:"\n"vs"5483143223\n2745854711\n5264556173\n6141336146\n6357385478\n4167524645\n2176841721"
+x,:"\n"vs"6882881134\n4846848554\n5283751526"
 ```
 
 ## Part 1
 We parse the input into numbers:
 ```q
-q)a:"J"$/:/:"\n"vs x;
+q)a:"J"$/:/:x
 q)a
 5 4 8 3 1 4 3 2 2 3
 2 7 4 5 8 5 4 7 1 1
@@ -18,8 +18,9 @@ q)a
 Then we do a loop with 100 steps. The step is implemented as a separate function so it can be
 reused for part 2.
 
-The function takes the matrix `a` and returns a pair of `(a;fl)` where `a` is the modified matrix and
-`fl` is a boolean matrix indicating which octopus flashed.
+The function takes the matrix `a` and returns a pair of `(a;fl)` where `a` is the modified matrix
+and `fl` is a boolean matrix indicating which octopus flashed.
+
 We start the step by increasing every value in the matrix by 1:
 ```q
 q)a+:1
@@ -50,7 +51,7 @@ q)fl
 `a<>a` is an easy way to create an all-zero matrix to match the size of another.
 To make the next calculation easier, we add a border of zeros around the matrix:
 ```q
-q)w:count first a;
+q)w:count first a
 q)a:0,/:(enlist[w#0],a,enlist[w#0]),\:0
 0 0 0  0  0 0  0  0  0 0 0  0
 0 7 6  10 5 3  6  5  4 4 5  0
@@ -60,7 +61,7 @@ q)a:0,/:(enlist[w#0],a,enlist[w#0]),\:0
 ```
 We also do the same with the flash array:
 ```q
-q)fl:0b,/:(enlist[w#0b],fl,enlist[w#0b]),\:0b;
+q)fl:0b,/:(enlist[w#0b],fl,enlist[w#0b]),\:0b
 q)fl
 000000000000b
 000000000000b
@@ -79,16 +80,16 @@ q)nfl
 ```
 Then we rotate this new flash matrix in 3*3 direcions: by -1, 1 and 0 both horizontally and
 vertically. The order is important because rotating by 0 in both directions just leaves the matrix
-alone, so putting the 0 last allows easily dropping it.
+alone, so putting the 0 last allows it to be easily dropped.
 
 The expression needs precise usage of iterators to fall into place:
 ```q
     -1 1 0 rotate/:\:nfl
 ```
 This rotates every row. The `/:` after rotate is necessary because we descend into the matrix as
-opposed to rotating the matrix itself (which would rotate the columns). The `\:` is necessary because
-we are rotating by 3 different amounts. The order `\:/:` is important as the opposite order would
-put the items in the wrong order in the result.
+opposed to rotating the matrix itself (which would rotate the columns). The `\:` is necessary
+because we are rotating by 3 different amounts. The order `\:/:` is important as the opposite order
+would put the items in the wrong order in the result.
 ```q
     -1 1 0 rotate\:/:-1 1 0 rotate/:\:nfl
 ```

@@ -1,14 +1,14 @@
 # Breakdown
 Example input:
 ```q
-x:"v...>>.vv>\n.vv>>.vv..\n>>.>v>...v\n>>v>>.>.v.\nv>v.vv.v..\n>.>>..v...\n.vv.";
-x,:".>.>v.\nv.v..>>v.v\n....v..v.>";
+x:"\n"vs"v...>>.vv>\n.vv>>.vv..\n>>.>v>...v\n>>v>>.>.v.\nv>v.vv.v..\n>.>>..v...\n.vv..>.>v."
+x,:"\n"vs"v.v..>>v.v\n....v..v.>"
 ```
-We cut the input into lines and replace the empty space marker with the actual space character.
+We replace the empty space marker with the actual space character.
 This is useful because the space counts as null for characters so we can use `^` (fill) to overlay
 one array on another and keep the values that "show through".
 ```q
-q)a:{?[;;" "]'[x<>".";x]}"\n"vs x
+q)a:?[;;" "]'[x<>".";x]
 q)a
 "v   >> vv>"
 " vv>> vv  "
@@ -34,7 +34,18 @@ the state number if the state didn't change.
 ```
 After the iteration, the last element of the pair is the answer.
 ```q
-    last a
+q)last a
+58
+q)first a
+"  >>v>vv  "
+"  v >>vv  "
+"  >>v>>vv "
+"  >>>>>vv "
+"v      >vv"
+"v>v    >>v"
+"vvv     >>"
+">vv      >"
+" >v vv v  "
 ```
 ## Iteration
 We save the current state to another variable so that we can check for changes at the end:

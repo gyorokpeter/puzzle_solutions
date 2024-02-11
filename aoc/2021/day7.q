@@ -1,12 +1,12 @@
 d7p1:{
-    a:"J"$","vs x;
+    a:"J"$","vs first x;
     lo:min a;
     hi:max a;
     dest:lo+til 1+hi-lo;
     costs:sum each abs a-/:dest;
     min costs};
 d7p2:{
-    a:"J"$","vs x;
+    a:"J"$","vs first x;
     lo:min a;
     hi:max a;
     dest:lo+til 1+hi-lo;
@@ -17,5 +17,7 @@ d7p2:{
     min costs};
 
 /
-d7p1 x:"16,1,2,0,4,2,7,1,2,14"
-d7p2 x
+x:enlist"16,1,2,0,4,2,7,1,2,14";
+
+d7p1 x  //37
+d7p2 x  //168

@@ -1,13 +1,14 @@
 # Breakdown
 Example input:
 ```q
-x:"2199943210\n3987894921\n9856789892\n8767896789\n9899965678"
+x:"\n"vs"2199943210\n3987894921\n9856789892\n8767896789\n9899965678"
 ```
 
 ## Part 1
-We parse the input into numbers:
+We parse the input into numbers, using two `/:` (each-right) to descend into the individual
+characters:
 ```q
-q)a:"J"$/:/:"\n"vs x
+q)a:"J"$/:/:x
 q)a
 2 1 9 9 9 4 3 2 1 0
 3 9 8 7 8 9 4 9 2 1
@@ -71,7 +72,6 @@ q)g
 0000001000b
 ```
 To sum the values, we can multiply the "is low point" flags by the heights:
-
 ```q
 q)a*g
 0 1 0 0 0 0 0 0 0 0
@@ -80,8 +80,8 @@ q)a*g
 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 5 0 0 0
 ```
-We also need to add one but only to the nonzero values. We can add the boolean matrix to achieve
-this:
+We also need to add one but only to the nonzero values. We can add the boolean low-points matrix to
+achieve this:
 ```q
 q)g+a*g
 0 2 0 0 0 0 0 0 0 1
@@ -100,7 +100,7 @@ q)sum sum g+a*g
 This is a breadth-first search with starting nodes in each low point. We also give each starting
 node a unique "basin" identifier to help counting them.
 ```q
-q)nodes:update basin:1+i from ([]pos:raze til[count a],/:'where each g);
+q)nodes:update basin:1+i from ([]pos:raze til[count a],/:'where each g)
 q)nodes
 pos basin
 ---------
@@ -117,8 +117,8 @@ q)h
 ```
 We initialize the queue and the list of visited nodes:
 ```q
-q)queue:nodes;
-q)visited:nodes;
+q)queue:nodes
+q)visited:nodes
 ```
 During each step, we first generate the neighbors of each node in the queue by adding the vectors
 for the four main directions:
@@ -149,6 +149,7 @@ pos basin
 We also filter out any positions corresponding to a 9. We can use the `.` (index at depth) operator
 between the board and the pos column to find the height values.
 ```q
+q)nxts:select from nxts where not pos in (exec pos from visited), 9>a ./:pos
 q)nxts
 pos basin
 ---------
@@ -160,8 +161,8 @@ pos basin
 ```
 We update the visited nodes and queue:
 ```q
-q)visited,:nxts;
-q)queue:nxts;
+q)visited,:nxts
+q)queue:nxts
 ```
 After the iteration is over, the visited list will contain all the nodes with their basin number.
 We can extract the size of each basin by grouping on the basin column:

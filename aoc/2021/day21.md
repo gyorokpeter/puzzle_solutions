@@ -1,7 +1,7 @@
 # Breakdown
 Example input:
 ```q
-x:"Player 1 starting position: 4\nPlayer 2 starting position: 8"
+x:"\n"vs"Player 1 starting position: 4\nPlayer 2 starting position: 8"
 ```
 
 ## Part 1
@@ -11,18 +11,15 @@ end, so I made a solution that should extend easily that way.
 We find the starting spaces for the two players from the input, but subtract 1 such that the first
 space is numbered zero:
 ```q
-q)"\n"vs x
-"Player 1 starting position: 4"
-"Player 2 starting position: 8"
-q)" "vs/:"\n"vs x
+q)" "vs/:x
 "Player" ,"1" "starting" "position:" ,"4"
 "Player" ,"2" "starting" "position:" ,"8"
-q)last each " "vs/:"\n"vs x
+q)last each " "vs/:x
 ,"4"
 ,"8"
-q)"J"$last each " "vs/:"\n"vs x
+q)"J"$last each " "vs/:x
 4 8
-q)a:-1+"J"$last each " "vs/:"\n"vs x
+q)a:-1+"J"$last each " "vs/:x
 q)a
 3 7
 ```
@@ -121,7 +118,7 @@ q)loserScore*winRoundFull
 ## Part 2
 Input parsing works the same way as in Part 1.
 ```q
-q)a:-1+"J"$last each " "vs/:"\n"vs x
+q)a:-1+"J"$last each " "vs/:x
 q)a
 3 7
 ```
@@ -220,7 +217,7 @@ For player 2, the code is almost the same but notice the different variable/colu
 ```
 After the player-specific processing, we deduplicate the states, adding their counts together:
 ```q
-q)state:0!select sum cnt by p1f, p2f, p1s, p2s from state;
+q)state:0!select sum cnt by p1f, p2f, p1s, p2s from state
 q)state
 p1f p2f p1s p2s cnt
 -------------------

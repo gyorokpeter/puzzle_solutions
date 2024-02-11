@@ -1,8 +1,9 @@
 # Breakdown
 Example input:
 ```q
-x:"1163751742\n1381373672\n2136511328\n3694931569\n7463417111\n1319128137\n1359";
-x,:"912421\n3125421639\n1293138521\n2311944581";
+x:"\n"vs"1163751742\n1381373672\n2136511328\n3694931569\n7463417111\n1319128137\n1359912421"
+x,:"\n"vs"3125421639\n1293138521\n2311944581"
+part:1
 ```
 
 ## Common
@@ -13,7 +14,7 @@ algorithm into q, using vector operations to avoid losing performance.
 
 We convert all the characters in the input to numbers:
 ```q
-    a:"J"$/:/:"\n"vs x;
+    a:"J"$/:/:x;
 ```
 We store the width and height for easier access:
 ```q

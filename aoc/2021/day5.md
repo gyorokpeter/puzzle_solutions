@@ -1,15 +1,15 @@
 # Breakdown
 Example input:
 ```q
-x:"0,9 -> 5,9\n8,0 -> 0,8\n9,4 -> 3,4\n2,2 -> 2,1\n7,0 -> 7,4\n6,4 -> 2,0\n0,9 -> 2,9\n3,4 -> 1,4"
-x,:"\n0,0 -> 8,8\n5,5 -> 8,2"
+x:"\n"vs"0,9 -> 5,9\n8,0 -> 0,8\n9,4 -> 3,4\n2,2 -> 2,1\n7,0 -> 7,4\n6,4 -> 2,0\n0,9 -> 2,9"
+x,:"\n"vs"3,4 -> 1,4\n0,0 -> 8,8\n5,5 -> 8,2"
 ```
 
 ## Part 1
-We cut on lines, then cut each line on `" -> "`, then each sub-line on `","` and convert to integers.
+We cut each line on `" -> "`, then each sub-line on `","` and convert to integers.
 We also sort to ensure that the coordinates go from left to right and top to bottom.
 ```q
-q)a:asc each "J"$","vs/:/:" -> "vs/:"\n"vs x;
+q)a:asc each "J"$","vs/:/:" -> "vs/:x
 q)a
 0 9 5 9
 0 8 8 0
@@ -24,13 +24,13 @@ q)a
 ```
 Then we filter horizontal and vertical lines based on where the first or second coordinates match.
 ```q
-q)h:a where a[;0;1]=a[;1;1];
+q)h:a where a[;0;1]=a[;1;1]
 q)h
 0 9 5 9
 3 4 9 4
 0 9 2 9
 1 4 3 4
-q)v:a where a[;0;0]=a[;1;0];
+q)v:a where a[;0;0]=a[;1;0]
 q)v
 2 1 2 2
 7 0 7 4
@@ -53,7 +53,7 @@ q)(h[;0;0]+til each 1+h[;1;0]-h[;0;0]),\:'h[;0;1]
 (3 4;4 4;5 4;6 4;7 4;8 4;9 4)
 (0 9;1 9;2 9)
 (1 4;2 4;3 4)
-q)hp:raze(h[;0;0]+til each 1+h[;1;0]-h[;0;0]),\:'h[;0;1];
+q)hp:raze(h[;0;0]+til each 1+h[;1;0]-h[;0;0]),\:'h[;0;1]
 q)hp
 0 9
 1 9
@@ -63,7 +63,7 @@ q)hp
 ```
 The generation of vertical lines is similar:
 ```q
-q)vp:raze v[;0;0],/:'v[;0;1]+til each 1+v[;1;1]-v[;0;1];
+q)vp:raze v[;0;0],/:'v[;0;1]+til each 1+v[;1;1]-v[;0;1]
 q)vp
 2 1
 2 2
@@ -71,7 +71,7 @@ q)vp
 7 1
 ...
 ```
-Finally we concatenate the two lists and check how many times each oint appears:
+Finally we concatenate the two lists and check how many times each point appears:
 ```q
 q)group hp,vp
 0 9| 0 13
@@ -93,7 +93,7 @@ q)1<count each group hp,vp
 2 9| 1
 3 9| 0
 ...
-sum 1<count each group hp,vp
+q)sum 1<count each group hp,vp
 5i
 ```
 
@@ -104,7 +104,7 @@ simpler solution for part 1 and I didn't feel like rewriting it afterwards.
 
 The input parsing is the same as for part 1:
 ```q
-q)a:asc each "J"$","vs/:/:" -> "vs/:"\n"vs x;
+q)a:asc each "J"$","vs/:/:" -> "vs/:x
 q)a
 0 9 5 9
 0 8 8 0
@@ -115,7 +115,7 @@ q)a
 We will once again generate the list of points, but this time handling all the directions as a
 single case. To do this we generate the direction vector for each line:
 ```q
-q)diff:a[;1]-a[;0];
+q)diff:a[;1]-a[;0]
 q)diff
 5 0
 8 -8

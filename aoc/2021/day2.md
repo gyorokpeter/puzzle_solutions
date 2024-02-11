@@ -1,14 +1,14 @@
 # Breakdown
 Example input:
 ```q
-x:"forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2"
+x:"\n"vs"forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2"
 ```
 
 ## Common
-We split the input into lines, then also split each line to words by cutting on spaces. The `/:`
+We split each line to words by cutting on spaces. The `/:`
 (each right) iterator is necessary on the second split since we are splitting each item in a list.
 ```q
-q)a:" "vs/:"\n"vs x
+q)a:" "vs/:x
 q)a
 "forward" ,"5"
 "down"    ,"5"

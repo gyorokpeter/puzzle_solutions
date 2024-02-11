@@ -1,19 +1,19 @@
 # Breakdown
 Example inputs:
 ```q
-x:"8A004A801A8002F478"
-x:"620080001611562C8802118E34"
-x:"C0015000016115A2E0802F182340"
-x:"A0016C880162017C3686B18A3D4780"
+x:enlist"8A004A801A8002F478"
+x:enlist"620080001611562C8802118E34"
+x:enlist"C0015000016115A2E0802F182340"
+x:enlist"A0016C880162017C3686B18A3D4780"
 
-x:"C200B40A82"
-x:"04005AC33890"
-x:"880086C3E88112"
-x:"CE00C43D881120"
-x:"D8005AC2A8F0"
-x:"F600BC2D8F"
-x:"9C005AC2F8F0"
-x:"9C0141080250320F1802104A08"
+x:enlist"C200B40A82"
+x:enlist"04005AC33890"
+x:enlist"880086C3E88112"
+x:enlist"CE00C43D881120"
+x:enlist"D8005AC2A8F0"
+x:enlist"F600BC2D8F"
+x:enlist"9C005AC2F8F0"
+x:enlist"9C0141080250320F1802104A08"
 ```
 
 ## Common
@@ -24,8 +24,9 @@ We parse the input using `"X"$`, which casts into the byte type and is the only 
 that expects the input to be in hexadecimal. Then we split the bytes into bits and raze them to
 get a single bit stream.
 ```q
-q)x:"8A004A801A8002F478"
-q)a:raze 0b vs/:"X"$2 cut x,$[1=count[x] mod 2;"0";""];
+q)x:enlist"8A004A801A8002F478"
+q)a0:first x
+q)a:raze 0b vs/:"X"$2 cut a0,$[1=count[a0] mod 2;"0";""];
 q)a
 100010100000000001001010100000000001101010000000000000101111010001111000b
 ```
@@ -133,15 +134,16 @@ If the length type is 1:
     args,:v 1;
     p:last v;
 ```
-Now we can invoke the operator. If the operation is between 0 and 3, we index into the list `(sum;prd;min;max)`
-to get the operation and apply it to the entire `args` list as its single argument:
+Now we can invoke the operator. If the operation is between 0 and 3, we index into the list
+`(sum;prd;min;max)` to get the operation and apply it to the entire `args` list as its single
+argument:
 ```q
     res:$[tp within 0 3;(sum;prd;min;max)[tp][args];
     ...
 ```
-If the operator is between 5 and 7, we subtract 5 from the operator so it becomes and index between 0 and 2,
-we index into the list `(>;<;=)` and apply it to `args` as its argument list (this only works if `args` has
-exactly 2 elements):
+If the operator is between 5 and 7, we subtract 5 from the operator so it becomes and index between
+0 and 2, we index into the list `(>;<;=)` and apply it to `args` as its argument list (this only
+works if `args` has exactly 2 elements):
 ```q
     ...
     tp within 5 7;(>;<;=)[tp-5] . args;
@@ -156,8 +158,8 @@ We return the cumulative version sum, the result of applying the operator and th
 ```q
     (vsum;res;p)
 ```
-The answer is obtained by calling `prs` on the entire input. We are only interested in the version sum for part 1
-and the operation result for part 2.
+The answer is obtained by calling `prs` on the entire input. We are only interested in the version
+sum for part 1 and the operation result for part 2.
 ```q
     prs[a;0]
 ```

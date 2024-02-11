@@ -1,8 +1,9 @@
 # Breakdown
 Example input:
 ```q
-x:"6,10\n0,14\n9,10\n0,3\n10,4\n4,11\n6,0\n6,12\n4,1\n0,13\n10,12\n3,4\n3,0";
-x,:"\n8,4\n1,10\n2,14\n8,10\n9,0\n\nfold along y=7\nfold along x=5";
+x:"\n"vs"6,10\n0,14\n9,10\n0,3\n10,4\n4,11\n6,0\n6,12\n4,1\n0,13\n10,12\n3,4\n3,0\n8,4\n1,10"
+x,:"\n"vs"2,14\n8,10\n9,0\n\nfold along y=7\nfold along x=5"
+part:1
 ```
 
 ## Part 1
@@ -10,8 +11,8 @@ We cut the input on `"\n\n"` to get the two sections.
 
 We cut the first section to lines and then cut each line on commas and convert them to integers.
 ```q
-q)a:"\n\n"vs x;
-q)dot:"J"$","vs/:"\n"vs a 0;
+q)a:"\n\n"vs"\n"sv x
+q)dot:"J"$","vs/:"\n"vs a 0
 q)dot
 6  10
 0  14
@@ -21,14 +22,14 @@ q)dot
 We cut the second section to lines, cut on spaces and take the last element of each line, then
 cut on `"="` and convert the first elements to symbols and the second elements to integers.
 ```q
-q)ins:"SJ"$/:"="vs/:last each" "vs/:"\n"vs a 1;
+q)ins:"SJ"$/:"="vs/:last each" "vs/:"\n"vs a 1
 q)ins
 `y 7
 `x 5
 ```
 For part 1 only, we drop all the elements of the instructions except the first:
 ```q
-q)if[part=1; ins:1#ins];
+q)if[part=1; ins:1#ins]
 q)ins
 `y 7
 ```
@@ -37,14 +38,15 @@ on a list, which will be the list of instructions.
 
 For example
 ```q
-q)ins0:ins 0;
+q)ins0:ins 0
 q)ins0
 `y
 7
 ```
-We pick an index based on whether the coordinate is x or y using the ? ([find](https://code.kx.com/q/ref/find/)) operator:
+We pick an index based on whether the coordinate is x or y using the ?
+([find](https://code.kx.com/q/ref/find/)) operator:
 ```q
-q)coord:`x`y?ins0[0];
+q)coord:`x`y?ins0[0]
 q)coord
 1
 ```
@@ -69,7 +71,7 @@ q).[dot;(ind;coord);(2*ins0[1])-]
 0  3
 ...
 ```
-And since we want to get rid of duplicates, we apply "distinct" to the result:
+And since we want to get rid of duplicates, we apply `distinct` to the result:
 ```q
 q)distinct .[dot;(ind;coord);(2*ins0[1])-]
 6  4
@@ -77,9 +79,21 @@ q)distinct .[dot;(ind;coord);(2*ins0[1])-]
 9  4
 ...
 ```
+After the iteration, we have the final matrix of dots.
+```q
+q)dot
+6  4
+0  0
+9  4
+0  3
+10 4
+..
+q)count dot
+17
+```
 For part 1, we return the number of dots here.
 ```q
-    if[part=1; :count dot];
+    if[part=1; :count dot]
 ```
 
 ## Part 2

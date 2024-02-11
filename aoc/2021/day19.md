@@ -1,18 +1,18 @@
 # Breakdown
 Example input: not pasting it in as it's too long, but the start and end would look like
 ```q
-x:"--- scanner 0 ---\n"
-x,:"404,-588,-901\n"
+x:"\n"vs"--- scanner 0 ---\n404,-588,-901\n528,-643,409\n-838,591,734\n390,-675,-793"
+x,:"\n"vs"-537,-823,-458\n-485,-357,347\n-345,-311,381\n-661,-816,-575\n-876,649,763"
 ..
-x,:"-652,-548,-490\n"
-x,:"30,-46,-14\n"
+x,:"\n"vs"-485,667,467\n-680,325,-822\n-627,-443,-432\n872,-547,-609\n833,512,582\n807,604,487"
+x,:"\n"vs"839,-516,451\n891,-625,532\n-652,-548,-490\n30,-46,-14"
 ```
 
 ## Common
 
 We split on double-newlines to find the boundaries of the scanners:
 ```q
-q)"\n\n"vs x
+q)"\n\n"vs"\n"sv x
 "--- scanner 0 ---\n404,-588,-901\n528,-643,409\n-838,591,734\n390,-675,-793\..
 "--- scanner 1 ---\n686,422,578\n605,423,415\n515,917,-361\n-336,658,858\n95,..
 "--- scanner 2 ---\n649,640,665\n682,-795,504\n-784,533,-524\n-644,584,-595\n..
@@ -21,7 +21,7 @@ q)"\n\n"vs x
 ```
 We split each sensor's output on newlines:
 ```q
-q)"\n"vs/:"\n\n"vs x
+q)"\n"vs/:"\n\n"vs"\n"sv x
 ("--- scanner 0 ---";"404,-588,-901";"528,-643,409";"-838,591,734";"390,-675,..
 ("--- scanner 1 ---";"686,422,578";"605,423,415";"515,917,-361";"-336,658,858..
 ("--- scanner 2 ---";"649,640,665";"682,-795,504";"-784,533,-524";"-644,584,-..
@@ -30,7 +30,7 @@ q)"\n"vs/:"\n\n"vs x
 ```
 We drop the first element of each list to get rid of the "scanner" header:
 ```q
-q)1_/:"\n"vs/:"\n\n"vs x
+q)1_/:"\n"vs/:"\n\n"vs"\n"sv x
 ("404,-588,-901";"528,-643,409";"-838,591,734";"390,-675,-793";"-537,-823,-45..
 ("686,422,578";"605,423,415";"515,917,-361";"-336,658,858";"95,138,22";"-476,..
 ("649,640,665";"682,-795,504";"-784,533,-524";"-644,584,-595";"-588,-843,648"..
@@ -39,7 +39,7 @@ q)1_/:"\n"vs/:"\n\n"vs x
 ```
 We split again, this time on commas and at a depth of two:
 ```q
-q)","vs/:/:1_/:"\n"vs/:"\n\n"vs x
+q)","vs/:/:1_/:"\n"vs/:"\n\n"vs"\n"sv x
 (("404";"-588";"-901");("528";"-643";"409");("-838";"591";"734");("390";"-675..
 (("686";"422";"578");("605";"423";"415");("515";"917";"-361");("-336";"658";"..
 (("649";"640";"665");("682";"-795";"504");("-784";"533";"-524");("-644";"584"..
@@ -48,7 +48,7 @@ q)","vs/:/:1_/:"\n"vs/:"\n\n"vs x
 ```
 We convert the numbers to integers:
 ```q
-q)vecs:"J"$","vs/:/:1_/:"\n"vs/:"\n\n"vs x
+q)vecs:"J"$","vs/:/:1_/:"\n"vs/:"\n\n"vs"\n"sv x
 q)vecs
 (404 -588 -901;528 -643 409;-838 591 734;390 -675 -793;-537 -823 -458;-485 -3..
 (686 422 578;605 423 415;515 917 -361;-336 658 858;95 138 22;-476 619 847;-34..
@@ -138,10 +138,10 @@ one. We also track which ones are "checked", i.e. we have found all other scanne
 normalized by comparing to the base scanner. We also store the origin point for each scanner,
 starting at 0 0 0, which will be moved as part of normalization.
 ```q
-q)normalized:count[vecs]#0b;
-q)normalized[0]:1b;
-q)checked:count[vecs]#0b;
-q)origin:count[vecs]#enlist 0 0 0;
+q)normalized:count[vecs]#0b
+q)normalized[0]:1b
+q)checked:count[vecs]#0b
+q)origin:count[vecs]#enlist 0 0 0
 ```
 We perform an iteration until there are no unnormalized scanners:
 ```q
@@ -221,7 +221,7 @@ q)rvecs
 ```
 We also update the pairwise differences:
 ```q
-q)dirdiffs[realMatchInd]:makeDirDiffs rvecs[realMatchInd];
+q)dirdiffs[realMatchInd]:makeDirDiffs rvecs[realMatchInd]
 q)dirdiffs
 -124  55    -1310 1242  -1179 -1635 14    87    -108  941   235   -443  889  ..
 -81   -1    -163  -171  -495  -939  -1022 -236  280   -591  284   -556  -1162..

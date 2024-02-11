@@ -1,32 +1,23 @@
 # Breakdown
 Example input:
 ```q
-x:"#############\n#...........#\n###B#C#B#D###\n  #A#D#C#A#\n  #########"
+x:"\n"vs"#############\n#...........#\n###B#C#B#D###\n  #A#D#C#A#\n  #########"
+part:1
 ```
 
 ## Common
 The solution is based on Dijkstra's algorithm.
 
-We split the input into lines:
-```q
-q)a:"\n"vs x
-q)a
-"#############"
-"#...........#"
-"###B#C#B#D###"
-"  #A#D#C#A#"
-"  #########"
-```
 We extract the room states by indexing, adding the extra two lines for part 2:
 ```q
-q)rooms:enlist[a[2;3 5 7 9]],$[part=2;("DCBA";"DBAC");()],enlist a[3;3 5 7 9];
+q)rooms:enlist[x[2;3 5 7 9]],$[part=2;("DCBA";"DBAC");()],enlist x[3;3 5 7 9]
 q)rooms
 "BCBD"
 "ADCA"
 ```
 We cache the room size depending on the part:
 ```q
-    roomSize:$[part=2;4;2];
+q)roomSize:$[part=2;4;2]
 ```
 We create the initial node, which will contain 11 spaces for the corridor and then the rooms
 transposed:
@@ -181,7 +172,7 @@ q)gol
 ```
 We do the same for moving right, this time there is no need to reverse.
 ```q
-q)gor:(moveOutPos+1+where each" "=fills each (moveOutPos+1)_\:node 0)except\:2 4 6 8;
+q)gor:(moveOutPos+1+where each" "=fills each (moveOutPos+1)_\:node 0)except\:2 4 6 8
 q)gor
 3 5 7 9 10
 5 7 9 10

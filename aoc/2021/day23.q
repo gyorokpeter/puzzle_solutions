@@ -44,15 +44,16 @@
     moveOut,moveIn};
 
 d23:{[part;x]
-    a:"\n"vs x;
-    rooms:enlist[a[2;3 5 7 9]],$[part=2;("DCBA";"DBAC");()],enlist a[3;3 5 7 9];
+    rooms:enlist[x[2;3 5 7 9]],$[part=2;("DCBA";"DBAC");()],enlist x[3;3 5 7 9];
     roomSize:$[part=2;4;2];
     b:enlist[11#" "],flip rooms;
     goal:enlist[11#" "],flip roomSize#enlist"ABCD";
     queue:([]node:enlist[b];len:enlist 0);
+    step:0;
     while[0<count queue;
+        step+:1;
         nxts:select from queue where len=min len;
-        -1 string[count queue]," ",string min nxts`len;
+        if[0=step mod 100;-1 string[count queue]," ",string min nxts`len];
         if[goal in nxts`node; :first nxts`len];
         queue:delete from queue where len=min len;
         nxts2:raze .d23.expand[roomSize] each nxts;
@@ -63,5 +64,7 @@ d23p1:{d23[1;x]};
 d23p2:{d23[2;x]};
 
 /
-d23p1 x:"#############\n#...........#\n###B#C#B#D###\n  #A#D#C#A#\n  #########"
-d23p2 x
+x:"\n"vs"#############\n#...........#\n###B#C#B#D###\n  #A#D#C#A#\n  #########";
+
+d23p1 x //12521
+d23p2 x //44169 (warning: very slow)

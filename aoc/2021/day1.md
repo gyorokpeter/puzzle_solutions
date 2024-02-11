@@ -1,26 +1,16 @@
 # Breakdown
 Example input:
 ```q
-x:"199\n200\n208\n210\n200\n207\n240\n269\n260\n263"
+x:"\n"vs"199\n200\n208\n210\n200\n207\n240\n269\n260\n263"
 ```
 
 ## Common
-The input parsing is pretty standard. First we break the input to lines using `"\n"vs`:
+The input parsing uses `"J"$` to convert the lines to integers.
 ```q
-q)"\n"vs x
-"199"
-"200"
-"208"
-"210"
-...
-```
-and then use `"J"$` to convert them to integers.
-```q
-q)a:"J"$"\n"vs x
+q)a:"J"$x
 q)a
 199 200 208 210 200 207 240 269 260 263
 ```
-This will be similar for many of the other days.
 
 ## Part 1
 The built-in [`deltas`](https://code.kx.com/q/ref/deltas/) function generates the difference between consecutive elements:

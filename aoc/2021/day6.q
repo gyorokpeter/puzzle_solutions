@@ -1,5 +1,5 @@
 d6:{[days;x]
-    a:"J"$","vs x;
+    a:"J"$","vs first x;
     t:{([timer:key x]cnt:value x)}count each group a;
     do[days;
         breed:select from t where timer=0;
@@ -14,5 +14,7 @@ d6p1:{d6[80;x]};
 d6p2:{d6[256;x]};
 
 /
-d5p1 x:"3,4,3,1,2"
-d5p2 x
+x:enlist"3,4,3,1,2";
+
+d6p1 x  //5934
+d6p2 x  //26984457539

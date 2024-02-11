@@ -1,5 +1,5 @@
 d12p1:{
-    a:flip`$"-"vs/:"\n"vs x;
+    a:flip`$"-"vs/:x;
     edges:exec t by s from (flip`s`t!a),flip`t`s!a;
     cap:{x where x=upper x}key edges;
     queue:enlist enlist`start;
@@ -14,7 +14,7 @@ d12p1:{
     count paths};
 
 d12p2:{
-    a:flip`$"-"vs/:"\n"vs x;
+    a:flip`$"-"vs/:x;
     edges:exec t by s from (flip`s`t!a),flip`t`s!a where t<>`start;
     cap:{x where x=upper x}key edges;
     small:({x where x=lower x}key edges)except `start`end;
@@ -32,17 +32,18 @@ d12p2:{
     count paths};
 
 /
+x:"\n"vs"start-A\nstart-b\nA-c\nA-b\nb-d\nA-end\nb-end";
 
+d12p1 x //10
+d12p2 x //36
 
-d12p1 x:"start-A\nstart-b\nA-c\nA-b\nb-d\nA-end\nb-end"
-d12p2 x
+x2:"\n"vs"dc-end\nHN-start\nstart-kj\ndc-start\ndc-HN\nLN-dc\nHN-end\nkj-sa\nkj-HN\nkj-dc";
 
-x:"dc-end\nHN-start\nstart-kj\ndc-start\ndc-HN\nLN-dc\nHN-end\nkj-sa\nk";
-x,:"j-HN\nkj-dc";
-d12p1 x
-d12p2 x
+d12p1 x2    //19
+d12p2 x2    //103
 
-x:"fs-end\nhe-DX\nfs-he\nstart-DX\npj-DX\nend-zg\nzg-sl\nzg-pj\npj-he\nR";
-x,:"W-he\nfs-DX\npj-RW\nzg-RW\nstart-pj\nhe-WI\nzg-he\npj-fs\nstart-RW";
-d12p1 x
-d12p2 x
+x3:"\n"vs"fs-end\nhe-DX\nfs-he\nstart-DX\npj-DX\nend-zg\nzg-sl\nzg-pj\npj-he\nRW-he\nfs-DX\npj-RW";
+x3,:"\n"vs"zg-RW\nstart-pj\nhe-WI\nzg-he\npj-fs\nstart-RW";
+
+d12p1 x3    //226
+d12p2 x3    //3509

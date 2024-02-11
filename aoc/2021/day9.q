@@ -1,4 +1,4 @@
-d9:{a:"J"$/:/:"\n"vs x;
+d9:{a:"J"$/:/:x;
     w:count first a;
     g:all a</:((1_/:a),\:0W;0W,/:-1_/:a;1_a,enlist w#0W;enlist[w#0W],-1_a);
     (a;w;g)};
@@ -18,5 +18,7 @@ d9p2:{
     prd 3#desc exec count i by basin from visited};
 
 /
-d9p1 x:"2199943210\n3987894921\n9856789892\n8767896789\n9899965678"
-d9p2 x
+x:"\n"vs"2199943210\n3987894921\n9856789892\n8767896789\n9899965678";
+
+d9p1 x  //15
+d9p2 x  //1134

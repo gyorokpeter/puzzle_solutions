@@ -1,7 +1,7 @@
 # Breakdown
 Example input:
 ```q
-x:"16,1,2,0,4,2,7,1,2,14"
+x:enlist"16,1,2,0,4,2,7,1,2,14"
 ```
 
 ## Common
@@ -9,9 +9,9 @@ Note that the input is an intcode program. This also relates to the title of the
 this has no bearing on the solution.
 
 ## Part 1
-We parse as a list of integers:
+We parse the only input line as a list of integers:
 ```q
-q)a:"J"$","vs x;
+q)a:"J"$","vs first x
 q)a
 16 1 2 0 4 2 7 1 2 14
 ```

@@ -1,5 +1,5 @@
 d17:{
-    a:"J"$".."vs/:last each "="vs/:2_" "vs x except",";
+    a:"J"$".."vs/:last each "="vs/:2_" "vs first[x] except",";
     if[(a[0;0]<=0) or a[1;1]>=0; '"nyi"];
     xs:1+til a[0;1];
     xss:{0,sums reverse 1+til x}each xs;
@@ -22,5 +22,7 @@ d17p1:{exec max pos from d17[x]};
 d17p2:{count d17[x]};
 
 /
-d17p1 x:"target area: x=20..30, y=-10..-5"
-d17p2 x
+x:enlist"target area: x=20..30, y=-10..-5";
+
+d17p1 x //45
+d17p2 x //112

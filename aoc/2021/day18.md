@@ -1,12 +1,11 @@
 # Breakdown
 Example input:
 ```q
-x:"[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]\n[[[5,[2,8]],4],[5,[[";
-x,:"9,9],0]]]\n[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]\n[[[6,[0,7]],[0,9]],[4,[9,[";
-x,:"9,0]]]]\n[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]\n[[6,[[7,3],[3,2]]],[[[3,";
-x,:"8],[5,7]],4]]\n[[[[5,4],[7,7]],8],[[8,3],8]]\n[[9,3],[[9,9],[6,[4,9]]]]\n";
-x,:"[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]\n[[[[5,2],5],[8,[3,7]]],[[5,[7,5]";
-x,:"],[4,4]]]";
+x:"\n"vs"[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]\n[[[5,[2,8]],4],[5,[[9,9],0]]]";
+x,:"\n"vs"[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]\n[[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]";
+x,:"\n"vs"[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]\n[[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]";
+x,:"\n"vs"[[[[5,4],[7,7]],8],[[8,3],8]]\n[[9,3],[[9,9],[6,[4,9]]]]";
+x,:"\n"vs"[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]\n[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]";
 ```
 
 ## Common
@@ -56,7 +55,7 @@ The reduce step performs just one operation, depending on which one can be execu
 Here is an example when the operation is an explode:
 ```q
 q)x:"[[6,[5,[4,[3,2]]]],1]"
-q)n:"J"$/:x;
+q)n:"J"$/:x
 q)n
 0N 0N 6 0N 0N 5 0N 0N 4 0N 0N 3 0N 2 0N 0N 0N 0N 0N 1 0N
 ```
@@ -70,8 +69,7 @@ q)x="]"
 000000000000001111001b
 q)(x="[")-x="]"
 1 1 0 0 1 0 0 1 0 0 1 0 0 0 -1 -1 -1 -1 0 0 -1i
-q)depth:sums(x="[")-x="]";
-q)
+q)depth:sums(x="[")-x="]"
 q)depth
 1 2 2 2 3 3 3 4 4 4 5 5 5 5 4 3 2 1 1 1 0i
 ```
@@ -82,14 +80,14 @@ q)5<=depth
 000000000011110000000b
 q)not null n
 001001001001010000010b
-q)deep:(5<=depth) and not null n;
+q)deep:(5<=depth) and not null n
 q)deep
 000000000001010000000b
 ```
 We find the first `1b` value in the list. We have to explode if the value returned by `?` iss less
 than the length of the list.
 ```q
-q)expl:deep?1b;
+q)expl:deep?1b
 q)expl
 11
 q)expl<count[depth]
@@ -105,14 +103,14 @@ q)expl#n
 0N 0N 6 0N 0N 5 0N 0N 4 0N 0N
 q)where not null expl#n
 2 5 8
-q)left:last where not null expl#n;
+q)left:last where not null expl#n
 q)left
 8
 q)(expl+3)_n
 0N 0N 0N 0N 0N 1 0N
 q)where not null (expl+3)_n
 ,5
-q)right:(expl+3)+first where not null (expl+3)_n;
+q)right:(expl+3)+first where not null (expl+3)_n
 q)right
 19
 ```
@@ -121,8 +119,8 @@ do need to explicitly check, otherwise we would be assigning to a null index whi
 ```q
 q)n
 0N 0N 6 0N 0N 5 0N 0N 4 0N 0N 3 0N 2 0N 0N 0N 0N 0N 1 0N
-q)if[not null left; n[left]+:n expl];
-q)if[not null right; n[right]+:n expl+2];
+q)if[not null left; n[left]+:n expl]
+q)if[not null right; n[right]+:n expl+2]
 q)n
 0N 0N 6 0N 0N 5 0N 0N 7 0N 0N 3 0N 2 0N 0N 0N 0N 0N 3 0N
 ```
@@ -131,10 +129,10 @@ two sections with a correctly-typed zero in the middle. We do this with both the
 representations. (The numbers will be off in the char representation, that's fixed in the final step
 of the outer function.)
 ```q
-q)n:((expl-1)#n),0,(expl+4)_n;
+q)n:((expl-1)#n),0,(expl+4)_n
 q)n
 0N 0N 6 0N 0N 5 0N 0N 7 0N 0 0N 0N 0N 0N 3 0N
-q)x:((expl-1)#x),"0",(expl+4)_x;
+q)x:((expl-1)#x),"0",(expl+4)_x
 q)x
 "[[6,[5,[4,0]]],1]"
 ```
@@ -144,7 +142,7 @@ Since we changed the list, we need to exit the iteration step here.
 Here is an example that results in a split:
 ```q
 q)x:"[[[[0,7],4],[7,[[8,4],9]]],[1,1]]"
-q)n:"J"$/:x;
+q)n:"J"$/:x
 q)xn:.d18.reduce1(x;n)
 q)x:xn 0;n:xn 1
 q)x
@@ -154,15 +152,15 @@ q)n
 ```
 We once again go through the steps to check for the need of an explosion, but find nothing:
 ```q
-q)depth:sums(x="[")-x="]";
-q)deep:(5<=depth) and not null n;
-q)expl:deep?1b;
+q)depth:sums(x="[")-x="]"
+q)deep:(5<=depth) and not null n
+q)expl:deep?1b
 q)expl<count[depth]
 0b
 ```
 We look for numbers greater than or equal to 10 to split:
 ```q
-q)split:first where 10<=n;
+q)split:first where 10<=n
 q)split
 13
 ```
@@ -192,7 +190,7 @@ in the outer function.
 ```q
 q)x
 "[[[[0,7],4],[7,[0,9]]],[1,1]]"
-q)x:(split#x),"[0,0]",(split+1)_x;
+q)x:(split#x),"[0,0]",(split+1)_x
 q)x
 "[[[[0,7],4],[[0,0],[0,9]]],[1,1]]"
 ```
@@ -240,19 +238,19 @@ respectively and sum the result:
 ```
 
 ## Part 1
-We split the input, sum the list and take the magnitude:
+We sum the list and take the magnitude:
 ```q
-    .d18.magn .d18.sum"\n"vs x
+    .d18.magn .d18.sum x
 ```
 
 ## Part 2
-We split the input again, but instead of summing all of them, we pairwise add them, which can be
-easily done by combining the `/:` and `\:` (each-right and each-left) iterators. The result is a
-matrix, but we can `raze` the result to have a list of the pairwise sums:
+Instead of summing all of the items in the input, we pairwise add them, which can be easily done by
+combining the `/:` and `\:` (each-right and each-left) iterators. The result is a matrix, but we can
+`raze` the result to have a list of the pairwise sums:
 ```q
-    raze {x .d18.add/:\:x}"\n"vs x
+    raze x .d18.add/:\:x
 ```
 We calculate the magnitude of each result and then find the maximum:
 ```q
-    max .d18.magn each raze {x .d18.add/:\:x}"\n"vs x
+    max .d18.magn each raze x .d18.add/:\:x
 ```

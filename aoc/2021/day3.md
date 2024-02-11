@@ -1,15 +1,14 @@
 # Breakdown
 Example input:
 ```q
-x:"00100\n11110\n10110\n10111\n10101\n01111\n00111\n11100\n10000\n11001\n00010\n01010"
+x:"\n"vs"00100\n11110\n10110\n10111\n10101\n01111\n00111\n11100\n10000\n11001\n00010\n01010"
 ```
 
 ## Part 1
-We split the lines and then convert every character into a boolean. The latter requires two `/:`
+We convert every character into a boolean. The latter requires two `/:`
 iterators because not only are we going into the list, we are also going into every element in it.
 ```q
-q)a:"\n"vs x
-q)"B"$/:/:a
+q)"B"$/:/:x
 00100b
 11110b
 10110b
@@ -17,32 +16,32 @@ q)"B"$/:/:a
 ```
 By summing this list, we can add up the bits in each position:
 ```q
-q)sum["B"$/:/:a]
+q)sum "B"$/:/:x
 7 5 8 7 5i
 ```
 Then we compare this to half the length of the list to get which bit is more common:
 ```q
-q)b:sum["B"$/:/:a]>count[a]%2
-q)b
+q)a:sum["B"$/:/:x]>count[x]%2
+q)a
 10110b
 ```
-The epsilon value is just the `not` of this value.
-Then we need to convert the binary values to decimal. The `sv` function has an [overload](https://code.kx.com/q/ref/sv/#base-to-integer) for this
+The epsilon value is just the `not` of this value. Then we need to convert the binary values to
+decimal. The `sv` function has an [overload](https://code.kx.com/q/ref/sv/#base-to-integer) for this
 where it takes an integer on the left and a list on the right, and it does the base conversion.
 Since we are invoking this on a two-element list, we need to use the `/:` iterator.
 ```q
-q)2 sv/:(b;not b)
+q)2 sv/:(a;not a)
 22 9
 ```
 The answer is the product of these two numbers.
 ```q
-q)prd 2 sv/:(b;not b)
+q)prd 2 sv/:(a;not a)
 198
 ```
 
 ## Part 2
 This requires an iterative solution. Each step of the iteration will filter on a particular bit.
-So if we have a list of binary numbers x, an we are checkin bit position y:
+So if we have a list of binary numbers `x`, and we are checking bit position `y`:
 ```q
 q)x:(00100b;11110b;10110b;10111b;10101b;01111b;00111b;11100b;10000b;11001b;00010b;01010b)
 q)y:0
@@ -63,8 +62,8 @@ And compare the list to this bit:
 q)b=sum[b]>=count[b]%2
 011110011100b
 ```
-Finally we use [`where`](https://code.kx.com/q/ref/where/) to turn this into a list of indices and then index into the original list
-to filter it:
+Finally we use [`where`](https://code.kx.com/q/ref/where/) to turn this into a list of indices and
+then index into the original list to filter it:
 ```q
 q)x where b=sum[b]>=count[b]%2
 11110b

@@ -1,5 +1,5 @@
 d21p1:{
-    a:-1+"J"$last each " "vs/:"\n"vs x;
+    a:-1+"J"$last each " "vs/:x;
     roll:flip sum each/:2 cut 3 cut 300#1+til 100;
     land:1_/:(sums each a,'roll)mod 10;
     if[not a~last each land; '"nyi"];
@@ -15,7 +15,7 @@ d21p1:{
     loserScore*winRoundFull};
 
 d21p2:{
-    a:-1+"J"$last each " "vs/:"\n"vs x;
+    a:-1+"J"$last each " "vs/:x;
     state:([]p1f:enlist a[0];p2f:a[1];p1s:0;p2s:0;cnt:1);
     splits:count each group sum each{x cross x cross x}1+til[3];
     win:0b;
@@ -40,5 +40,7 @@ d21p2:{
     max(p1wins;p2wins)};
 
 /
-d21p1 x:"Player 1 starting position: 4\nPlayer 2 starting position: 8"
-d21p2 x
+x:"\n"vs"Player 1 starting position: 4\nPlayer 2 starting position: 8";
+
+d21p1 x //739785
+d21p2 x //444356092776315

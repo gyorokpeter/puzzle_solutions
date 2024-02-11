@@ -1,17 +1,17 @@
 # Breakdown
 Example input is too long to copy here in full.
 ```q
-x:"on x=-20..26,y=-36..17,z=-47..7\n"
-x,:"on x=-20..33,y=-21..23,z=-26..28\n"
+x:enlist"on x=-20..26,y=-36..17,z=-47..7"
+x,:enlist"on x=-20..33,y=-21..23,z=-26..28"
 ..
-x,:"on x=-54112..-39298,y=-85059..-49293,z=-27449..7877\n"
-x,:"on x=967..23432,y=45373..81175,z=27513..53682"
+x,:enlist"on x=-54112..-39298,y=-85059..-49293,z=-27449..7877"
+x,:enlist"on x=967..23432,y=45373..81175,z=27513..53682"
 ```
 
 ## Part 1
-We split the input into lines and words:
+We split the input lines into words:
 ```q
-q)a:" "vs/:"\n"vs x
+q)a:" "vs/:x
 q)a
 "on"  "x=-20..26,y=-36..17,z=-47..7"
 "on"  "x=-20..33,y=-21..23,z=-26..28"
@@ -53,8 +53,10 @@ state of the cubes, the type of instruction and the coordinates:
 ```
 Example for the first iteration:
 ```q
+q)on1:on 0
 q)on1
 1b
+q)pos1:pos 0
 q)pos1
 30 76
 14 67
@@ -104,7 +106,7 @@ q)sum sum sum state
 
 Input parsing is similar to above:
 ```q
-q)a:" "vs/:"\n"vs x
+q)a:" "vs/:x
 q)on:a[;0] like "on"
 q)pos:"J"$".."vs/:/:last each/:"="vs/:/:","vs/:last each a
 q)pos

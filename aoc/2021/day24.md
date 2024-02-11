@@ -31,21 +31,20 @@ enough digits to meet the constraints.
 # Whiteboxing
 The input used for the demonstration is an actual puzzle input, loaded using the equivalent of
 ```q
-    x:"\n"sv read0`:day24.in
+    x:read0`:day24.in
 ```
 
 ## Common
 We cut the input into lines, then extract the numbers that indicate the peek and pop instructions
 and the numbers used for comparison and pushing:
 ```q
-q)a:"\n"vs x;
-q)stackOp:(1 26!`peek`pop)"J"$last each" "vs/:a[4+18*til 14];
+q)stackOp:(1 26!`peek`pop)"J"$last each" "vs/:x[4+18*til 14]
 q)stackOp
 `peek`peek`peek`pop`peek`pop`pop`peek`pop`peek`peek`pop`pop`pop
-q)compareNum:"J"$last each " "vs/:a[5+18*til 14]
+q)compareNum:"J"$last each " "vs/:x[5+18*til 14]
 q)compareNum
 11 11 15 -14 10 0 -6 13 -3 13 15 -2 -9 -2
-q)pushNum:"J"$last each " "vs/:a[15+18*til 14]
+q)pushNum:"J"$last each " "vs/:x[15+18*til 14]
 q)pushNum
 6 14 13 1 6 13 6 3 8 14 4 7 15 1
 ```
@@ -127,7 +126,7 @@ q)@[;;-;]\[14#9;?[constr[;1]<0;constr[;2];constr[;0]];abs constr[;1]]
 9 1 9 8 3 9 9 9 9 9 7 9 9 9
 9 1 9 8 3 9 9 9 9 4 7 9 9 9
 5 1 9 8 3 9 9 9 9 4 7 9 9 9
-q)p1:10 sv @[;;-;]/[14#9;?[constr[;1]<0;constr[;2];constr[;0]];abs constr[;1]];
+q)p1:10 sv @[;;-;]/[14#9;?[constr[;1]<0;constr[;2];constr[;0]];abs constr[;1]]
 q)p1
 51983999947999
 ```
@@ -143,7 +142,7 @@ q)@[;;+;]\[14#1;?[constr[;1]<0;constr[;0];constr[;2]];abs constr[;1]]
 1 1 2 1 1 7 9 1 1 1 1 3 1 1
 1 1 2 1 1 7 9 1 1 1 1 3 6 1
 1 1 2 1 1 7 9 1 1 1 1 3 6 5
-q)p2:10 sv @[;;+;]/[14#1;?[constr[;1]<0;constr[;0];constr[;2]];abs constr[;1]];
+q)p2:10 sv @[;;+;]/[14#1;?[constr[;1]<0;constr[;0];constr[;2]];abs constr[;1]]
 q)p2
 11211791111365
 ```

@@ -1,5 +1,6 @@
 d16:{
-    a:raze 0b vs/:"X"$2 cut x,$[1=count[x] mod 2;"0";""];
+    a0:first x;
+    a:raze 0b vs/:"X"$2 cut a0,$[1=count[a0] mod 2;"0";""];
     prs:{[a;p0] //p0:0
         p:p0;
         ver:0b sv 00000b,a[p+til 3];
@@ -44,16 +45,16 @@ d16p1:{d16[x][0]};
 d16p2:{d16[x][1]};
 
 /
-d16p1 x:"8A004A801A8002F478"
-d16p1 x:"620080001611562C8802118E34"
-d16p1 x:"C0015000016115A2E0802F182340"
-d16p1 x:"A0016C880162017C3686B18A3D4780"
+d16p1 enlist"8A004A801A8002F478"    //16
+d16p1 enlist"620080001611562C8802118E34"    //12
+d16p1 enlist"C0015000016115A2E0802F182340"  //23
+d16p1 enlist"A0016C880162017C3686B18A3D4780"    //31
 
-d16p2 x:"C200B40A82"
-d16p2 x:"04005AC33890"
-d16p2 x:"880086C3E88112"
-d16p2 x:"CE00C43D881120"
-d16p2 x:"D8005AC2A8F0"
-d16p2 x:"F600BC2D8F"
-d16p2 x:"9C005AC2F8F0"
-d16p2 x:"9C0141080250320F1802104A08"
+d16p2 enlist"C200B40A82"    //3
+d16p2 enlist"04005AC33890"  //54
+d16p2 enlist"880086C3E88112"    //7
+d16p2 enlist"CE00C43D881120"    //9
+d16p2 enlist"D8005AC2A8F0"  //1
+d16p2 enlist"F600BC2D8F"    //0
+d16p2 enlist"9C005AC2F8F0"  //0
+d16p2 enlist"9C0141080250320F1802104A08"    //1

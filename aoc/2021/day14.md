@@ -1,9 +1,9 @@
 # Breakdown
 Example input:
 ```q
-x:"NNCB\n\nCH -> B\nHH -> N\nCB -> H\nNH -> C\nHB -> C\nHC -> B\nHN -> ";
-x,:"C\nNN -> C\nBH -> H\nNC -> B\nNB -> B\nBN -> B\nBB -> N\nBC -> B\nCC";
-x,:" -> N\nCN -> C";
+x:"\n"vs"NNCB\n\nCH -> B\nHH -> N\nCB -> H\nNH -> C\nHB -> C\nHC -> B\nHN -> C\nNN -> C\nBH -> H"
+x,:"\n"vs"NC -> B\nNB -> B\nBN -> B\nBB -> N\nBC -> B\nCC -> N\nCN -> C"
+steps:10
 ```
 
 ## Common
@@ -16,9 +16,9 @@ We cut the input on `"\n\n"` to get the two sections. The first section is the i
 
 We cut the second section to lines, then cut each line on `" -> "` and form a dictionary.
 ```q
-q)a:"\n\n"vs x;
-q)s:a 0;
-q)r:{x[;0]!raze x[;1]}" -> "vs/:"\n"vs a[1];
+q)a:"\n\n"vs"\n"sv x
+q)s:a 0
+q)r:{x[;0]!raze x[;1]}" -> "vs/:"\n"vs a[1]
 q)r
 "CH"| B
 "HH"| N
@@ -52,14 +52,14 @@ Next comes the actual iteration. The number of steps will be a parameter for the
 In the first step, we take the dictionary apart and find what character will be inserted into each
 pair:
 ```q
-q)k:key pair; v:value pair; rk:r[k];
+q)k:key pair; v:value pair; rk:r[k]
 q)rk
 "CBH"
 ```
-We generate the new pairs as a table. The table will consist of two parts. In the first part,
-the first column will be the first characters of each pair
-concatenated with the inserted characters, and in the second part, it will be the inserted characters concatenated with
-the last characters of each pair. The second column is the list of counts for the pairs in both parts.
+We generate the new pairs as a table. The table will consist of two parts. In the first part, the
+first column will be the first characters of each pair concatenated with the inserted characters,
+and in the second part, it will be the inserted characters concatenated with the last characters of
+each pair. The second column is the list of counts for the pairs in both parts.
 ```q
 q)([]ch:(k[;0],'rk);n:v)
 ch   n
@@ -73,7 +73,7 @@ ch   n
 "CN" 1
 "BC" 1
 "HB" 1
-q)npair:([]ch:(k[;0],'rk),(rk,'k[;1]);n:v,v);
+q)npair:([]ch:(k[;0],'rk),(rk,'k[;1]);n:v,v)
 q)npair
 ch   n
 ------
@@ -86,7 +86,7 @@ ch   n
 ```
 We collapse this into a dictionary again by summing the counts by the pairs:
 ```q
-q)pair:exec sum n by ch from npair;
+q)pair:exec sum n by ch from npair
 q)pair
 "BC"| 1
 "CH"| 1
@@ -113,7 +113,7 @@ this we divide the counts of the characters by two.
 
 We find the count of each character in the first position:
 ```q
-q)chr0:([]ch:key[pair][;0]; n:value pair);
+q)chr0:([]ch:key[pair][;0]; n:value pair)
 q)chr0
 ch n
 ------
@@ -126,7 +126,7 @@ C  115
 ```
 We do the same for the second position:
 ```q
-q)chr1:([]ch:key[pair][;1]; n:value pair);
+q)chr1:([]ch:key[pair][;1]; n:value pair)
 q)chr1
 ch n
 ------
@@ -138,7 +138,7 @@ N  735
 ```
 We also add a count of 1 for the character at the beginning and the end of the original string:
 ```q
-q)chr2:([]ch:first[s],last s;n:1);
+q)chr2:([]ch:first[s],last s;n:1)
 q)chr2
 ch n
 ----
@@ -147,7 +147,7 @@ B  1
 ```
 Finally we sum together all these counts by character and divide the results by 2:
 ```q
-q)chr:exec sum[n]div 2 by ch from chr0,chr1,chr2;
+q)chr:exec sum[n]div 2 by ch from chr0,chr1,chr2
 q)chr
 B| 1749
 C| 298

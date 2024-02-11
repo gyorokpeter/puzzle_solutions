@@ -1,7 +1,8 @@
 # Breakdown
 Example input:
 ```q
-x:"3,4,3,1,2"
+x:enlist"3,4,3,1,2"
+days:80
 ```
 
 ## Common
@@ -12,7 +13,7 @@ to the common function.
 
 The input parsing splits on comma and casts to integers.
 ```q
-q)a:"J"$","vs x;
+q)a:"J"$","vs first x
 q)a
 3 4 3 1 2
 ```
@@ -35,9 +36,14 @@ timer| cnt
 ```
 The next section will be iterated according to the number of days. It is enough to use a "do" loop
 here.
-
+```q
+    do[days;
+        ...
+    ];
+```
 A more interesting scenario occurs on the second day where the actual breeding starts:
 ```q
+q)t:([timer:2 3 0 1]cnt:2 1 1 1)
 q)t
 timer| cnt
 -----| ---
@@ -48,7 +54,7 @@ timer| cnt
 ```
 We first select the rows corresponding to the lanternfish that will breed:
 ```q
-q)breed:select from t where timer=0;
+q)breed:select from t where timer=0
 q)breed
 timer| cnt
 -----| ---
@@ -56,6 +62,7 @@ timer| cnt
 ```
 And similarly the ones that won't:
 ```q
+q)notBreed:select from t where timer>0
 q)notBreed
 timer| cnt
 -----| ---
@@ -82,7 +89,7 @@ q)count each group hp,vp
 ```
 2. the breeding lanternfish with their timer reset to 6:
 ```q
-q)t2:update timer:count[i]#6 from breed;
+q)t2:update timer:count[i]#6 from breed
 q)t2
 timer| cnt
 -----| ---
@@ -90,7 +97,7 @@ timer| cnt
 ```
 3. the new lanternfish from breeding with a timer of 8:
 ```q
-q)t3:update timer:count[i]#8 from breed;
+q)t3:update timer:count[i]#8 from breed
 q)t3
 timer| cnt
 -----| ---
@@ -119,4 +126,14 @@ timer| cnt
 ...
 q)exec sum cnt from t
 5934
+```
+
+This logic works for both parts, so we can wrap it in a function that takes the number of days as a
+parameter:
+```q
+    d6:{[days;x]
+        ...
+        };
+    d6p1:{d6[80;x]};
+    d6p2:{d6[256;x]};
 ```
