@@ -8,3 +8,4 @@ Some general self-imposed rules on the code:
   * In case there would be considerable code duplication between the two parts, the solution is instead a single `dX` function that takes either the part as an integer `1` or `2`, or any parameter specific to the puzzle, along with the input.
 * No setting global variables (which locks out some clever golfed solutions). Helper functions may be named with a `dX` prefix or in the `.dX` namespace.
 * No usage of `value` on a string to execute untrusted input.
+* Code must run on the 32-bit version of 3.6 2019.04.02. (This is the last "no-strings-attached" free version.) That implies unfortunately not using the cool syntax introduced in 4.1.
