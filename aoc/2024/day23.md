@@ -158,6 +158,7 @@ groups:
 ```
 During iteration, we expand each node by adding all neighbors from the mapping:
 ```q
+q)nxts:raze ([]p:queue),/:'flip each([]ext:b last each queue)
 q)nxts
 p  ext
 ------

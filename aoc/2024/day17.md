@@ -179,7 +179,8 @@ We convert the two masks into length 3 boolean lists:
     shiftMask:-3#0b vs mainOps[0;1];
     outMask:-3#0b vs mainOps[1;1];
 ```
-We initialize the queue with a single node containig an empty sequence and an empty constraint list:
+We initialize the queue with a single node containing an empty sequence and an empty constraint
+list:
 ```q
     nodes:enlist`seq`constr!(();());
 ```
@@ -219,7 +220,7 @@ We add another column that contains the result of XORing the first XOR result wi
 ```q
     nodes:update b2:b1<>\:outMask from nodes;
 ```
-We add another column with the offset caluclated by combining the current position with the one
+We add another column with the offset calculated by combining the current position with the one
 calculated from the first XOR:
 ```q
     nodes:update offset:pos+2 sv/:b1 from nodes;
@@ -250,7 +251,7 @@ We filter the list to remove the nodes that don't match the constraints:
 ```q
     nodes:select from nodes where all each matchVal~''toMatch[;;1];
 ```
-Finally we drop all the extra columns and only keep the sequences and constraionts:
+Finally we drop all the extra columns and only keep the sequences and constraints:
 ```q
     nodes:select seq, constr from nodes
 ```
