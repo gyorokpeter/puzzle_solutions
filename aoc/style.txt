@@ -1,0 +1,7 @@
+q files
+- single / between code and demo
+- no empty line before demo
+
+md files
+- example input: without q) prefix, without ; suffixes
+- blank lines only before section headers and when an expicit line break is necessary

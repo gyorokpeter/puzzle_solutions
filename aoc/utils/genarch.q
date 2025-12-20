@@ -1,9 +1,6 @@
-{
-    path:"/"sv -1_"/"vs ssr[;"\\";"/"]first -3#value .z.s;
-    if[not `html in key`;
-        system"l ",path,"/html.q";
+if[not `html in key`;
+    -1 "HTML support disabled - load html.q from the qutils project to enable";
     ];
-    }[];
 
 .genarch.list:`$();
 .genarch.reqFuncs:`new`run`runD`resume`isRunning`isTerminated`needsInput`getIp`getRegisters`getMemory`getInput`getOutput`getImmediate`addInput`clearOutput
@@ -34,7 +31,9 @@
     .genarch.list:asc distinct .genarch.list,namespace;
     };
 
-.html.commandHandlers[`genarch]:`.genarch.gui;
+if[`html in key`;
+    .html.commandHandlers[`genarch]:`.genarch.gui;
+    ];
 
 .genarch.initState:(::);
 .genarch.state:(::);

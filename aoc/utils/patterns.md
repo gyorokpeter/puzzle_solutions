@@ -1,3 +1,29 @@
+# Range of integers
+`til` only generates integers from `0` to `n-1`. What if we need integers between the bounds `a` and
+`b`? We can still use `til` but we need to carefully choose the number of integers to generate and
+then use an addition to shift the numbers into the correct range.
+
+For example to generate the integers from 10 to 15:
+```q
+q)a:10
+q)b:15
+```
+The number of integers to generate is the difference between the two bounds plus one (the interval
+is closed on both sides).
+```q
+q)b-a
+5
+q)1+b-a
+6
+q)til 1+b-a
+0 1 2 3 4 5
+```
+To shift the numbers to the correct range, we add the lower bound:
+```q
+q)a+til 1+b-a
+10 11 12 13 14 15
+```
+
 # 2D search
 This technique allows searching for the coordinates of all elements matching a value in a matrix.
 
