@@ -300,7 +300,7 @@ From these two numbers we can "implement" matching with rules 8 and 11:
 number of both, and rule 8 adds at least one more)
 ```q
     (pre>post)
-``` 
+```
 * the total of the prefix and postfix length must add up to the length of the string (no bits that
 don't match either rule nor a random mixture of 42- and 31-compliant rules in the middle)
 ```q

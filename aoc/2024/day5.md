@@ -149,7 +149,7 @@ lists:
 q)if[0=count bad; bad:where 0<count each e];
 q)bad
 3 4 5
-``` 
+```
 We check if we are finished. The details are further down.
 ```q
     if[0=count raze e; ...]

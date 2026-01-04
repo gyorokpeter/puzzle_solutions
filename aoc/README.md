@@ -12,8 +12,10 @@ Some general self-imposed rules on the code:
   * In case there would be considerable code duplication between the two parts, the solution is
     instead a single `dX` function that takes either the part as an integer `1` or `2`, or any
     parameter specific to the puzzle, along with the input.
-* No setting global variables (which locks out some clever golfed solutions). Helper functions may
-  be named with a `dX` prefix or in the `.dX` namespace.
+* No setting global variables (which locks out some clever golfed solutions). The exception is where
+  passing complex state through a function tree is crucial for optimization and passing it around as
+  a parameter would make way it uglier. Helper functions may be named with a `dX` prefix or in the
+  `.dX` namespace.
 * No usage of `value` on a string to execute untrusted input.
 * For seasons up to 2024, code must run on the 32-bit version of 3.6 2019.04.02. (This was the last
   "no-strings-attached" free version for a long time.) That implies unfortunately not using the cool

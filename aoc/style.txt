@@ -1,6 +1,8 @@
 q files
 - single / between code and demo
 - no empty line before demo
+- no space between // and example output
+- No imput file, the input is a X. (no empty line before/after)
 
 md files
 - example input: without q) prefix, without ; suffixes

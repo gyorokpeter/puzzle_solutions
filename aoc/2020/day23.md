@@ -60,7 +60,7 @@ q)right
 (e.g. the element at index 3 is 5, which means cup 3 has cup 5 to its right).
 
 We initialize the current cup to the first cup and also set the round counter to zero:
-``` q
+```q
 q)curr:first c
 q)curr
 2

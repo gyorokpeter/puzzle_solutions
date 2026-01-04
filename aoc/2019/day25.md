@@ -756,7 +756,7 @@ roomNorth   | 3348
 roomEast    | 3478
 roomSouth   | 3124
 roomWest    | 0
-``` 
+```
 To find out how to get the winning number, we need to look at what the entry function for the
 pressure-sensitive floor does. It goes through all the items in the game, and if the particular item
 is in your inventory, it adds their unscrambled score to a total. (The harmful items have scores

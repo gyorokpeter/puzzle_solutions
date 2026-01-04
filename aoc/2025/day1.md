@@ -50,7 +50,7 @@ almost every puzzle.
 ```q
 q)"J"$1_/:x
 68 30 48 5 60 55 1 99 14 82
-``` 
+```
 We multiply the numbers by their signs that we calculated above:
 ```q
 q)(("LR"!-1 1)x[;0])*"J"$1_/:x
