@@ -13,7 +13,7 @@ Debugger features:
 * Lineage: after recording a trace, follows the origins of a data value, listing which instruction calculated it and how, as far as possible.
 * Memory and output history listing
 
-To use, load an arch definition and navigate to /genarch on the HTTP interface.
+To use, load an arch definition (e.g. `intcode.q` from 2019) and navigate to /genarch on the HTTP interface.
 
 An arch consists of functions in a given namespace (e.g. ```.intcode```) and is registered by calling .genarch.register with the bare namespace name (e.g. ```.genarch.register`intcode```).
 
