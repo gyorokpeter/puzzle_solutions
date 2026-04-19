@@ -103,12 +103,12 @@ operation, which is checking whether a single element of the matrix is within on
 q)tk[0][0] within rule 0
 0b
 ```
-To eliminate the index on the rules, we use `/:` (each-right):
+To eliminate the index on the rules, we use `/:` (each right):
 ```q
 q)tk[0][0] within/:rule
 011000b
 ```
-To eliminate the two indices on the matrix, we use two instances of `\:` (each-left):
+To eliminate the two indices on the matrix, we use two instances of `\:` (each left):
 ```q
 q)tk within/:\:\:rule
 011000b 100000b 000001b

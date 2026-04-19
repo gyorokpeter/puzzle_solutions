@@ -117,7 +117,7 @@ f.m| "..###..###" "#...##.#.." ".....##..." "..##.#..#." "###.##.#.." "..###.#.#
 frm| "###..###.." "..#.##...#" "...##....." ".#..#.##.." "..#.##.###" ".#.#.###.." "#.#.#.#..." "...
 ```
 To find which combinations align, we match them pairwise with the combined iterator `/:\:`
-(each-right and each-left). We have to do this at two different levels (since we have to match up
+(each right and each left). We have to do this at two different levels (since we have to match up
 both tiles and orientations):
 ```q
 q){x{x~/:\:y}/:\:y}[tco[;;;tw-1];tco[;;;0]]
@@ -379,7 +379,7 @@ it pairwise.
 We update the queue elements at the next position to create the next state of the queue. This is
 done using [amend](https://code.kx.com/q/ref/amend/) in order to be able to iterate it. For each
 row in the queue, we want to apply the amend separately for each element on the right, so a
-combination of `'` (each) and `/:` (each-right) is necessary. Furthermore, we need to raze the
+combination of `'` (each) and `/:` (each right) is necessary. Furthermore, we need to raze the
 results to get rid of the exra level of nesting.
 ```q
 q)raze @[;ni;:;]/:'[queue;poss]
@@ -479,7 +479,7 @@ q)queue
 ```
 The tile contents are in element 3 of `r`. We eliminate the borders from these using the `_` (drop)
 operator - we remove the first and last element of each tile, plus the first and last element of
-each row of each tile, which requires varying the number of `/:` (each-right) iterators to make sure
+each row of each tile, which requires varying the number of `/:` (each right) iterators to make sure
 the operation is applied at the correct level:
 ```q
 q)r 3
@@ -506,7 +506,7 @@ There are 8 different map configurations in the queue. We don't know which one i
 assemble the full map for all of them. This is how it is done for the first configuration.
 
 We use the items of the configuration as indices into the tile contents map. The `.` (multi-level
-apply) will look up a single tile. To look up multiple tiles, we iterate it with `/:` (each-right).
+apply) will look up a single tile. To look up multiple tiles, we iterate it with `/:` (each right).
 ```q
 q)queue 0
 `... 6
@@ -665,7 +665,7 @@ q)topLefts
 ..
 ```
 To get all the coordinates that we need to check, we add the pattern coordinates to the top-left
-coordinates with a combination of each-left and each-right:
+coordinates with a combination of each left and each right:
 ```q
 q)coords:topLefts+/:\:pattern2
 q)coords

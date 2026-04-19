@@ -6,7 +6,7 @@ x:("R75,D30,R83,U83,L12,D49,R71,U7,L72";"U62,R66,U55,R34,D71,R55,D58,R83")
 
 ## Common
 The common function returns every coordinate along a path. First we cut the input lines on commas -
-this needs to be done with `/:` (each-right) to make sure it applies to each line.
+this needs to be done with `/:` (each right) to make sure it applies to each line.
 ```q
 q)a:","vs/:x
 q)a
@@ -187,7 +187,7 @@ q)b[0] inter b[1]
 ```
 Now we want to find each intersection in both paths. The [`?`](https://code.kx.com/q/ref/find/)
 operator can do this find operation, however since we have a lists of lists to search in, we need to
-use the `\:` (each-left) iterator such that it will search in both lists. Using it without `\:`
+use the `\:` (each left) iterator such that it will search in both lists. Using it without `\:`
 would mean it would compare the whole paths to the intersections, which wouldn't match.
 ```q
 q)b?\:b[0]inter b[1]

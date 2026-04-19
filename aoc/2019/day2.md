@@ -72,7 +72,7 @@ q)til[100]
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 ..
 ```
 We use `/:\:` (the combination of 
-[each-left and each-right](https://code.kx.com/q/ref/maps/#each-left-and-each-right)) to call the
+[each left and each right](https://code.kx.com/q/ref/maps/#each-left-and-each-right) to call the
 interpreter with every pairing of the numbers from 0 to 99:
 ```q
 q)b:til[100]d2[a]/:\:til[100]

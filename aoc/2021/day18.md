@@ -245,7 +245,7 @@ We sum the list and take the magnitude:
 
 ## Part 2
 Instead of summing all of the items in the input, we pairwise add them, which can be easily done by
-combining the `/:` and `\:` (each-right and each-left) iterators. The result is a matrix, but we can
+combining the `/:` and `\:` (each right and each left) iterators. The result is a matrix, but we can
 `raze` the result to have a list of the pairwise sums:
 ```q
     raze x .d18.add/:\:x

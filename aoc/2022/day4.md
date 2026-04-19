@@ -15,7 +15,7 @@ q)","vs/:x
 "6-6" "4-6"
 "2-6" "4-8"
 ```
-We also cut on dashes inside the previous cuts - as we are now one level deeper, this requires two usages of each-right.
+We also cut on dashes inside the previous cuts - as we are now one level deeper, this requires two usages of each right.
 ```q
 q)"-"vs/:/:","vs/:x
 ,"2" ,"4" ,"6" ,"8"

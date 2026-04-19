@@ -19,7 +19,7 @@ q)`int$x[;0 2]
 66 88
 67 90
 ```
-We normalize by subtracting 65 from the first number and 88 from the second number, such that both sides have the values 0, 1 and 2. This can be done with a single subtraction with each-left.
+We normalize by subtracting 65 from the first number and 88 from the second number, such that both sides have the values 0, 1 and 2. This can be done with a single subtraction with each left.
 ```q
 q)a:(`int$x[;0 2])-\:65 88
 q)a
@@ -36,7 +36,7 @@ q)(3 6 0;0 3 6;6 0 3)
 0 3 6
 6 0 3
 ```
-To calculate the score for all rounds, we index the matrix with all the elements from our `a` variable from above. This can be done using the `.` operator with each-right. This is the reason for normalizing the values to be zero-based.
+To calculate the score for all rounds, we index the matrix with all the elements from our `a` variable from above. This can be done using the `.` operator with each right. This is the reason for normalizing the values to be zero-based.
 ```q
 q)(3 6 0;0 3 6;6 0 3)./:a
 6 0 3

@@ -6,7 +6,7 @@ Example input:
 x:"\n"vs"1abc2\npqr3stu8vwx\na1b2c3d4e5f\ntreb7uchet";
 ```
 
-We need to keep only the digits from the input. The built-in variable `.Q.n` is defined as `"0123456789"`, so it is perfect for this filtering. We can use [`inter`](https://code.kx.com/q/ref/inter/) which returns the intersection between the two sets, keeping the left argument in order. Since we want to iterate over the left argument but not the right one, we use the `\:` (each-left) iterator.
+We need to keep only the digits from the input. The built-in variable `.Q.n` is defined as `"0123456789"`, so it is perfect for this filtering. We can use [`inter`](https://code.kx.com/q/ref/inter/) which returns the intersection between the two sets, keeping the left argument in order. Since we want to iterate over the left argument but not the right one, we use the `\:` (each left) iterator.
 ```q
 q)x inter\:1_.Q.n
 "12"
@@ -64,7 +64,7 @@ q)("one";"two";"three";"four";"five";"six";"seven";"eight";"nine"),enlist each 1
 ,"8"
 ,"9"
 ```
-When searching for the digits, we use the `ss` operator with both `/:` (each-right) and `\:` (each-left). This is because we want to search for every digit in every string. The ordering of the two iterators matters, if we swap them, the resulting matrix will be flipped. With the ordering `/:\:` we get one row for each input line and one column for each digit.
+When searching for the digits, we use the `ss` operator with both `/:` (each right) and `\:` (each left). This is because we want to search for every digit in every string. The ordering of the two iterators matters, if we swap them, the resulting matrix will be flipped. With the ordering `/:\:` we get one row for each input line and one column for each digit.
 ```q
 q)a:x ss/:\:("one";"two";"three";"four";"five";"six";"seven";"eight";"nine"),enlist each 1_.Q.n;
 q)a

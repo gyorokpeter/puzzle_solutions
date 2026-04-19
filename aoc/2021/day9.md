@@ -5,7 +5,7 @@ x:"\n"vs"2199943210\n3987894921\n9856789892\n8767896789\n9899965678"
 ```
 
 ## Part 1
-We parse the input into numbers, using two `/:` (each-right) to descend into the individual
+We parse the input into numbers, using two `/:` (each right) to descend into the individual
 characters:
 ```q
 q)a:"J"$/:/:x

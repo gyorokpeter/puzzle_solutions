@@ -80,55 +80,10 @@ K  | `L`YOU
 (In q we don't have to aggregate if we group by something, we simply get every value in the group as
 a list. And we use `exec` to get a dictionary instead of a table.) To get the number of paths, we
 need the transitive closure of the child map. In the final map, every node will be mapped to all
-nodes that can be reached from it, so every such node pairing will correspond to one path. To
-generate the transitive closure, all we have to do is repeatedly apply the child map to itself and
-concatenate the resulting nodes to the exiting ones, dropping any duplicates. We do this until there
-are no more paths generated. This "repeat until no change" behavior can be achieved using the `/`
-(over) iterator.
-One iteration would look like this:
-```q
-q)x:childMap
-q)x x
-B  | (,`D;,`H)
-C  | ,`E`I
-COM| ,`C`G
-D  | (`F`J;,`SAN)
-E  | (`symbol$();,`K)
-G  | ,`symbol$()
-I  | ,`symbol$()
-J  | ,`L`YOU
-K  | (`symbol$();`symbol$())
-```
-Notice how each element on the right has been replaced by its children. Now we concatenate the
-already known children to the existing ones:
-```q
-q)x,'x x
-B  | (`C;`G;,`D;,`H)
-C  | (`D;`E`I)
-COM| (`B;`C`G)
-D  | (`E;`I;`F`J;,`SAN)
-E  | (`F;`J;`symbol$();,`K)
-G  | (`H;`symbol$())
-I  | (`SAN;`symbol$())
-J  | (`K;`L`YOU)
-K  | (`L;`YOU;`symbol$();`symbol$())
-```
-Then we raze each list on the right such that the elements are on the same level. We also use
-distinct on them, although this doesn't change anything on the first iteration, it will on
-subsequent iterations as there will be duplicates.
-```q
-q)distinct each raze each x,'x x
-B  | `C`G`D`H
-C  | `D`E`I
-COM| `B`C`G
-D  | `E`I`F`J`SAN
-E  | `F`J`K
-G  | ,`H
-I  | ,`SAN
-J  | `K`L`YOU
-K  | `L`YOU
-```
-Putting this together, the transitive closure calculation looks like:
+nodes that can be reached from it, so every such node pairing will correspond to one path.
+
+See [transitive closure](../utils/patterns.md#transitive-closure) for the details of generating the
+transitive closure.
 ```q
 q)childMap:{distinct each raze each x,'x x}/[childMap]
 q)childMap

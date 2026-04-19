@@ -37,7 +37,7 @@ q)1_/:deltas each"J"$" "vs/:x
 2  3  1  2
 ```
 The condition can be rephrased as "all differences are either one of `-1 -2 -3` or one of `1 2 3`".
-So we use `in` to check each difference against these two lists, adding an _each-right_ due to the
+So we use `in` to check each difference against these two lists, adding an _each right_ due to the
 right argument being a list of lists:
 ```q
 q)(1_/:deltas each"J"$" "vs/:x)in/:(1 2 3;-1 -2 -3)
@@ -48,7 +48,7 @@ The condition only holds when all of the booleans in the small lists are true. W
 check for this, however we need to bring this down two levels (the first level is the choice
 between the positive and negative differences, and the second is the line in the input). `each`
 brings a function down one level, but if we want to bring it down more than level, we need to add an
-`each-right` for each additional level:
+`each right` for each additional level:
 ```q
 q)all each/:(1_/:deltas each"J"$" "vs/:x)in/:(1 2 3;-1 -2 -3)
 000001b
@@ -76,7 +76,7 @@ q)til count x
 ```
 We use the overload of [`drop (_)`](https://code.kx.com/q/ref/drop/) that takes an index on the
 right and drops that index from the list on the left. We want to drop each index in turn, so we
-iterate using an _each-right_:
+iterate using an _each right_:
 ```q
 q)x _/:til count x
 4 6 8 10

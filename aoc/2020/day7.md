@@ -131,68 +131,7 @@ vibrant plum| `faded blue`dotted black
 faded blue  | `symbol$()
 dotted black| `symbol$()
 ```
-We would like to find the transitive closure of each color. This can be done by applying the
-dictionary to itself and razing and deduplicating the results until it no longer changes.
-
-One step of this might look like:
-
-We apply the dictionary to itself:
-```q
-q)d d
-light red   | (,`shiny gold;`shiny gold`faded blue)
-dark orange | (,`shiny gold;`shiny gold`faded blue)
-bright white| ,`dark olive`vibrant plum
-muted yellow| (`dark olive`vibrant plum;`symbol$())
-shiny gold  | (`faded blue`dotted black;`faded blue`dotted black)
-dark olive  | (`symbol$();`symbol$())
-vibrant plum| (`symbol$();`symbol$())
-faded blue  | ()
-dotted black| ()
-```
-We raze the resulting lists:
-```q
-q)raze each d d
-light red   | `shiny gold`shiny gold`faded blue
-dark orange | `shiny gold`shiny gold`faded blue
-bright white| `dark olive`vibrant plum
-muted yellow| `dark olive`vibrant plum
-shiny gold  | `faded blue`dotted black`faded blue`dotted black
-dark olive  | `symbol$()
-vibrant plum| `symbol$()
-faded blue  | ()
-dotted black| ()
-```
-We join the original elements to the results:
-```q
-q)d,'raze each d d
-light red   | `bright white`muted yellow`shiny gold`shiny gold`faded blue
-dark orange | `bright white`muted yellow`shiny gold`shiny gold`faded blue
-bright white| `shiny gold`dark olive`vibrant plum
-muted yellow| `shiny gold`faded blue`dark olive`vibrant plum
-shiny gold  | `dark olive`vibrant plum`faded blue`dotted black`faded blue`dotted black
-dark olive  | `faded blue`dotted black
-vibrant plum| `faded blue`dotted black
-faded blue  | `symbol$()
-dotted black| `symbol$()
-```
-Then we take the distinct sets:
-```q
-q)distinct each d,'raze each d d
-light red   | `bright white`muted yellow`shiny gold`faded blue
-dark orange | `bright white`muted yellow`shiny gold`faded blue
-bright white| `shiny gold`dark olive`vibrant plum
-muted yellow| `shiny gold`faded blue`dark olive`vibrant plum
-shiny gold  | `dark olive`vibrant plum`faded blue`dotted black
-dark olive  | `faded blue`dotted black
-vibrant plum| `faded blue`dotted black
-faded blue  | `symbol$()
-dotted black| `symbol$()
-```
-Now we wrap this into a function:
-```q
-    {distinct each x,'raze each x x}
-```
-The "until it no longer changes" part is taken care of by the `/` iterator.
+We find the [transitive closure](../utils/patterns.md#transitive-closure) of each color:
 ```q
 q)e:{distinct each x,'raze each x x}/[d]
 q)e

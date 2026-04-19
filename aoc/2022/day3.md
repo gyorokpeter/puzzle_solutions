@@ -5,7 +5,7 @@ x:"\n"vs"vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvP
 ```
 
 ## Part 1
-The [`take`](https://code.kx.com/q/ref/take/#atom-or-list) operator has a special case if we try to make a 2-dimensional matrix and specify null as the second dimension. It will maximize that dimension but also not change the ordering of the elements. This is a useful trick for cutting lists exactly in half. Note the use of each-right as we want to split each line instead of the whole list.
+The [`take`](https://code.kx.com/q/ref/take/#atom-or-list) operator has a special case if we try to make a 2-dimensional matrix and specify null as the second dimension. It will maximize that dimension but also not change the ordering of the elements. This is a useful trick for cutting lists exactly in half. Note the use of each right as we want to split each line instead of the whole list.
 ```q
 q)p:2 0N#/:x
 q)p

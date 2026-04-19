@@ -70,7 +70,7 @@ We can use this to sort the list of packets:
 ```q
 b2:sort[cmp;b];
 ```
-Then we look up the indices of the delimiter packets we saved earlier, and once again add one before multiplying them together. `~` _match_ is used for the comparison because `?` is unpredictable when both arguments are lists. The comparison must be done using each-left and each-right, because we are searching for two items, and we are searching for each of them in the larger list.
+Then we look up the indices of the delimiter packets we saved earlier, and once again add one before multiplying them together. `~` _match_ is used for the comparison because `?` is unpredictable when both arguments are lists. The comparison must be done using each left and each right, because we are searching for two items, and we are searching for each of them in the larger list.
 ```q
 prd 1+where any b2~\:/:dl
 ```

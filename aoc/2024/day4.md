@@ -82,7 +82,7 @@ q)a[0]+cs[0][0]
 ```
 Then we remove one layer of indexing, replacing it with iteration. First we remove a layer from
 the right argument, which corresponds to iterating over one set of offsets (stepping in one
-direction). We replace the index with an _each-right_ on the operator:
+direction). We replace the index with an _each right_ on the operator:
 ```q
 q)a[0]+/:cs[0]
 0 5
@@ -101,7 +101,7 @@ q)a[0]+/:/:cs
 1 3  2 2  3 1
 -1 5 -2 6 -3 7
 ```
-Finally we iterate over the "X" coordinates, so we remove the index from `a` and add an _each-left_:
+Finally we iterate over the "X" coordinates, so we remove the index from `a` and add an _each left_:
 ```q
 q)a+/:/:\:cs
 0 5  0 6  0 7     0 3  0 2  0 1     1 4  2 4  3 4     -1 4 -2 4 -3 4    1 5  2 6  3 7     -1 3 -2 ..
@@ -112,7 +112,7 @@ q)a+/:/:\:cs
 ..
 ```
 We can now find what letters the coordinates map to. We use the `.` operator for indexing the
-character matrix. We have to use three `each-right` iterators since the coordinates are at the third
+character matrix. We have to use three `each right` iterators since the coordinates are at the third
 level:
 ```q
 q)x ./:/:/:a+/:/:\:cs
@@ -125,7 +125,7 @@ q)x ./:/:/:a+/:/:\:cs
 ```
 This gives us the strings in all 8 directions that can be read from everx "X" coordinate. We need to
 count the occurrences of `"MAS"` in the matrix. For exact matches on strings we can use `~`, and we
-must use two `each-right` iterators this time as the strings are two levels deep:
+must use two `each right` iterators this time as the strings are two levels deep:
 ```q
 q)"MAS"~/:/:x ./:/:/:a+/:/:\:cs
 00001000b

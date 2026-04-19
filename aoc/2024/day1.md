@@ -11,7 +11,7 @@ spaces and then take the first and last element.
 
 We use [`vs`](https://code.kx.com/q/ref/vs/) to split strings. This is a very useful function that
 will be used for almost all input parsing. Since we want to split each string in a list, we have to
-combine it with [`each-right (/:)`](https://code.kx.com/q/ref/maps/#each-left-and-each-right).
+combine it with [`each right (/:)`](https://code.kx.com/q/ref/maps/#each-left-and-each-right).
 ```q
 q)" "vs/:x
 ,"3" "" "" ,"4"
@@ -24,8 +24,8 @@ q)" "vs/:x
 We could take the first and last element with `first each` and `last each`. However we can combine
 the two operations by using the [`apply (@)`](https://code.kx.com/q/ref/apply/#apply-at-index-at)
 operator, providing the function to be called on the left and the operand on the right. Since we
-both have a list of operations and a list of items to apply them to, we have to combine each-left
-and each-right to get `/:\:`. The ordering between `/:` and `\:` depends on the circumstance, in
+both have a list of operations and a list of items to apply them to, we have to combine each left
+and each right to get `/:\:`. The ordering between `/:` and `\:` depends on the circumstance, in
 this order we get a matrix with one row for each operation (`first` and `last`) and one column for
 each line of the input, while the reverse order would result in a transpose of this matrix. This
 time having two rows makes the rest of the solution easier.

@@ -107,7 +107,7 @@ q)ms
 ```
 We define two more helper functions, one to generate the rotated versions of a list of vectors and
 one to generate the pairwise differences between a list of vectors (excluding the self-differences).
-Both of these make use of each-right and each-left applied together, first because we apply every
+Both of these make use of each right and each left applied together, first because we apply every
 matrix to every vector, second because the differences are taken between every pair of vectors.
 ```q
 q)makeRvecs:{[immu;ms;x]ms immu/:\:x}[immu;ms]

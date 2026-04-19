@@ -13,7 +13,7 @@ x,:enlist"Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
 ## Common
 We will use a common function `d2` to convert the input into a regular format.
 
-We start by splitting the input. Various splits are needed and at various depths, so we need to use the correct number of `/:` (each-right) iterators with `vs` to make sure it is applied at the correct level. We also drop the game identifier as it is easy to reconstruct from the row index.
+We start by splitting the input. Various splits are needed and at various depths, so we need to use the correct number of `/:` (each right) iterators with `vs` to make sure it is applied at the correct level. We also drop the game identifier as it is easy to reconstruct from the row index.
 ```q
 q)": "vs/:x
 "Game 1" "3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
@@ -75,7 +75,7 @@ q)@[0 0 0;;:;]''[typ;num]
 This will be the return value of `d2`.
 
 # Part 1
-We need to compare the output of `d2` to the constant list `12 13 14`. To apply the comparison at the right level, we need to use two `/:` (each-right) iterators, as the lists are two levels down.
+We need to compare the output of `d2` to the constant list `12 13 14`. To apply the comparison at the right level, we need to use two `/:` (each right) iterators, as the lists are two levels down.
 ```q
 q)12 13 14>=/:/:d2 x
 (111b;111b;111b)

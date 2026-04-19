@@ -28,7 +28,7 @@ Still this ends up being a killer with a large number of moves, since there is n
 optimize the sequential array updates.
 
 We start by converting the cup numbers to integers and subtracting one to get the cup IDs. Note that
-`"J"$` would convert the whole string, so we need to use it with `/:` (each-right) to convert the
+`"J"$` would convert the whole string, so we need to use it with `/:` (each right) to convert the
 individual characters.
 ```q
 q)c:-1+"J"$/:x

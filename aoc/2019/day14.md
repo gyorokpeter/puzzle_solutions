@@ -12,7 +12,7 @@ x,:enlist"2 AB, 3 BC, 4 CA => 1 FUEL"
 ```
 
 ## Part 1
-The input is deeply nested so we need a lot of each-right (/:) during input parsing.
+The input is deeply nested so we need a lot of each right (/:) during input parsing.
 ```q
 q)a:"JS"$/:/:/:" "vs/:/:/:", "vs/:/:" => "vs/:x
 q)a

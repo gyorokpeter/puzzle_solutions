@@ -98,7 +98,7 @@ calculate the coordinates within each signal type, we have to use `each`:
 b:{...}each a
 ```
 The function to apply between the coordinates will need to pair up the list with itself in all
-combinations, which can be done by using both _each-left_ and _each-right_:
+combinations, which can be done by using both _each left_ and _each right_:
 ```q
 b:{x{...}/:\:x}each a
 ```

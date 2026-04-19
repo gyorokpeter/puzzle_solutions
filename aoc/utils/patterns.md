@@ -95,7 +95,7 @@ q)til[count x],'where each x="X"
 9 1 3 5 9
 ```
 However this only concatenates the index to the beginning of the list. We need to concatenate it to
-every elemnt instead, so we add an _each-right_:
+every elemnt instead, so we add an _each right_:
 ```q
 q)til[count x],/:'where each x="X"
 (0 4;0 5)
@@ -120,4 +120,77 @@ q)a
 2 4
 3 9
 ..
+```
+
+# Transitive closure
+The transitive closure of a mapping refers to the mapping of which elements can be reached from each
+starting element. The most common usage is finding which nodes are reachable from each node given
+the adjacency map of a graph.
+
+Example mapping:
+```q
+q)m:``fwft`padx`tknk`ugml!(enlist`tknk;`xhth`ktlj`cntj;`pbga`havc`qoyq;`fwft`padx`ugml;`ebii`jptl`gyxo)
+q)m
+    | ,`tknk
+fwft| `xhth`ktlj`cntj
+padx| `pbga`havc`qoyq
+tknk| `fwft`padx`ugml
+ugml| `ebii`jptl`gyxo
+```
+The core of the trick is to apply the map to itself:
+```q
+q)m m
+    | ,`fwft`padx`ugml
+fwft| (`symbol$();`symbol$();`symbol$())
+padx| (`symbol$();`symbol$();`symbol$())
+tknk| (`xhth`ktlj`cntj;`pbga`havc`qoyq;`ebii`jptl`gyxo)
+ugml| (`symbol$();`symbol$();`symbol$())
+```
+The result is the nested list of nodes reachable in two steps. To find which nodes can be reached in
+one or two steps, we prepend the original map:
+```q
+q)m,'m m
+    | (`tknk;`fwft`padx`ugml)
+fwft| (`xhth;`ktlj;`cntj;`symbol$();`symbol$();`symbol$())
+padx| (`pbga;`havc;`qoyq;`symbol$();`symbol$();`symbol$())
+tknk| (`fwft;`padx;`ugml;`xhth`ktlj`cntj;`pbga`havc`qoyq;`ebii`jptl`gyxo)
+ugml| (`ebii;`jptl;`gyxo;`symbol$();`symbol$();`symbol$())
+```
+We eliminate the nesting by razing each element:
+```q
+q)raze each m,'m m
+    | `tknk`fwft`padx`ugml
+fwft| `xhth`ktlj`cntj
+padx| `pbga`havc`qoyq
+tknk| `fwft`padx`ugml`xhth`ktlj`cntj`pbga`havc`qoyq`ebii`jptl`gyxo
+ugml| `ebii`jptl`gyxo
+```
+We would like to repeat this steps until there are no new nodes added. To make this possible, we
+deduplicate using `distinct` and put the elements in ascending order. Since we do three different
+operations on each sublist, either we can repeat the `each` function name three times, or just wrap
+the three operations in a function and apply that with a single `each`.
+```q
+q)asc each distinct each raze each m,'m m
+    | `s#`fwft`padx`tknk`ugml
+fwft| `s#`cntj`ktlj`xhth
+padx| `s#`havc`pbga`qoyq
+tknk| `s#`cntj`ebii`fwft`gyxo`havc`jptl`ktlj`padx`pbga`qoyq`ugml`xhth
+ugml| `s#`ebii`gyxo`jptl
+q){asc distinct raze x} each m,'m m
+    | `s#`fwft`padx`tknk`ugml
+fwft| `s#`cntj`ktlj`xhth
+padx| `s#`havc`pbga`qoyq
+tknk| `s#`cntj`ebii`fwft`gyxo`havc`jptl`ktlj`padx`pbga`qoyq`ugml`xhth
+ugml| `s#`ebii`gyxo`jptl
+```
+To find the transitive closure, we iterate the extension until the result matches the input. The
+`/` (over) iterator has an overload that [repeats](https://code.kx.com/q/ref/accumulators/#converge)
+until the input no longer changes (or we get the initial input back).
+```q
+q){{asc distinct raze x} each x,'x x}/[m]
+    | `s#`cntj`ebii`fwft`gyxo`havc`jptl`ktlj`padx`pbga`qoyq`tknk`ugml`xhth
+fwft| `s#`cntj`ktlj`xhth
+padx| `s#`havc`pbga`qoyq
+tknk| `s#`cntj`ebii`fwft`gyxo`havc`jptl`ktlj`padx`pbga`qoyq`ugml`xhth
+ugml| `s#`ebii`gyxo`jptl
 ```

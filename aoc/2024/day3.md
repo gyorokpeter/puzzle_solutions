@@ -87,7 +87,7 @@ q)c
 8  5
 ```
 We can multiply the corresponding numbers by applying the `*` operator with `.`, but we have to use
-_each-right_ as we have multiple lists of operands:
+_each right_ as we have multiple lists of operands:
 ```q
 q)(*)./:c
 8 25 88 40

@@ -40,7 +40,7 @@ q)ssr/[;("ne";"nw";"sw";"se";"e";"w");"124503"]each x
 ..
 ```
 Since this is still in characters, we convert them to integers. Note that `"J"$` would convert the
-whole strings, so we need to use it with `/:` (each-right) to convert the individual characters -
+whole strings, so we need to use it with `/:` (each right) to convert the individual characters -
 twice, because the list has a depth of 2.
 ```q
 "353000215233413"

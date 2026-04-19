@@ -19,7 +19,7 @@ Input parsing works the same way for both parts.
 First we raze the input together (only for convenience, as there are no line breaks in the real
 input) and split it up using [`vs`](https://code.kx.com/q/ref/vs/). We cut on `","` first to get
 one element per interval, then cut again on `"-"` to get the two ends of the interval. For the
-latter, we need to descend into the list on the right, so we need to use the `/:` (each-right)
+latter, we need to descend into the list on the right, so we need to use the `/:` (each right)
 iterator.
 ```q
 q)","vs raze x

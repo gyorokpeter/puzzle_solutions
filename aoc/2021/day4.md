@@ -80,7 +80,7 @@ q)lines
 4  9  14 19 24
 ```
 To find when each line wins, first we need to use the lines as indices into every card. So we need
-to use the `@` indexing operator with each-left (`\:`). After that it works correctly (e.g.
+to use the `@` indexing operator with each left (`\:`). After that it works correctly (e.g.
 `round[0][lines]` would retrieve each line for the first card).
 ```q
 q)round@\:lines

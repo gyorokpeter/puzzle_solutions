@@ -17,7 +17,7 @@ x,:enlist"10456732";
 The two parts are solved using the same algorithm. We use BFS starting from the `0` positions. The
 only difference between the two parts is whether we keep the individual paths or not.
 
-We parse the input into integers. Just like [day 9](day9.md), we have to add an extra _each-right_
+We parse the input into integers. Just like [day 9](day9.md), we have to add an extra _each right_
 since we want to parse individual characters, not whole lines.
 ```q
 q)a:"J"$/:/:x

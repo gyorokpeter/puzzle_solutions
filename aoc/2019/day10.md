@@ -132,7 +132,7 @@ q)b
 ```
 Now we want to figure out the best place for the station. First we need the relative coordinates
 between each pair of asteroids. This can be done by subtracting every coordinate pair from every
-other. The idiomatic way to do this in q is by combining the `/:` (each-right) and `\:` (each-left)
+other. The idiomatic way to do this in q is by combining the `/:` (each right) and `\:` (each left)
 iterators. The two orders of combining them give equivalent results, but one is the transpose of the
 other.
 ```q

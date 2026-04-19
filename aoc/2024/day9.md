@@ -6,7 +6,7 @@ x:enlist"2333133121414131402";
 ```
 
 ## Part 1
-We parse the input into integers. Note that this time there needs to be an _each-right_ on the parse
+We parse the input into integers. Note that this time there needs to be an _each right_ on the parse
 operator since we want to parse the individual characters and not the whole string.
 ```q
 q)"J"$/:first x

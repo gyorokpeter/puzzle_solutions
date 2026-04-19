@@ -139,7 +139,7 @@ q)len
 6 9 7 2 5 5 3 3 9 4
 ```
 Once again we generate the list of numbers but this time we multiply them by the direction vector.
-This requires an each-left inside an each since we want to multiply each direction vector by the
+This requires an each left inside an each since we want to multiply each direction vector by the
 respective multipliers, but also each vector needs to be multiplied by all the multipliers in that
 list.
 ```q

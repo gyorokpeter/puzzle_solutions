@@ -7,3 +7,4 @@ q files
 md files
 - example input: without q) prefix, without ; suffixes
 - blank lines only before section headers and when an expicit line break is necessary
+- each left (not each-left)

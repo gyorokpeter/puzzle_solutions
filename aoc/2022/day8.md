@@ -5,7 +5,7 @@ x:"\n"vs"30373\n25512\n65332\n33549\n35390";
 ```
 
 ## Common
-We convert all the digits to integers. This requires using `/:` _each-right_ twice, since even though normally `$` is atomic in its right argument, it stops at the first string to convert it, but this time we do want to go to the next level to convert the individual digits.
+We convert all the digits to integers. This requires using `/:` _each right_ twice, since even though normally `$` is atomic in its right argument, it stops at the first string to convert it, but this time we do want to go to the next level to convert the individual digits.
 ```q
 q)a:"J"$/:/:x
 q)a

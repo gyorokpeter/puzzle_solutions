@@ -33,7 +33,7 @@ q)til count[map]div slope 1
 0 1 2 3 4 5 6 7 8 9 10
 ```
 Then we multiply each of these with the slope. This requires
-[`/: (each-right)`](https://code.kx.com/q/ref/maps/#each-left-and-each-right/ since the thing we
+[`/: (each right)`](https://code.kx.com/q/ref/maps/#each-left-and-each-right/) since the thing we
 are multiplying is a list itself.
 ```q
 q)reverse[slope]*/:til count[map]div slope 1

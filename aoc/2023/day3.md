@@ -163,7 +163,7 @@ q){-1 1+/:x}til count num
 7  9
 8  10
 ```
-These are the vertical ranges for each row index, now we have to pair them up with the horizontal ranges. This can be done using `/:` (each-right) since we have lists on the right and single elements on the left, then `'` (each) to pairwise match up the rows. The operation that we apply this way is putting two elements into a list, which is what `enlist` does, in this case the operation should be written as `enlist[;]` to get the two-argument version but a shorthand for this is `(;)`.
+These are the vertical ranges for each row index, now we have to pair them up with the horizontal ranges. This can be done using `/:` (each right) since we have lists on the right and single elements on the left, then `'` (each) to pairwise match up the rows. The operation that we apply this way is putting two elements into a list, which is what `enlist` does, in this case the operation should be written as `enlist[;]` to get the two-argument version but a shorthand for this is `(;)`.
 ```q
 q)xyr:({-1 1+/:x}til count num)(;)/:'xr
 q)xyr
@@ -213,7 +213,7 @@ We pick up where the common logic left off:
 ```q
 r:d3 x; num3:r 0; xyr3:r 1;
 ```
-We find the coordinates of all the special symbols (i.e. anything that is not `"."` and not in `.Q.n`). This is a frequently occurring technique: we use `where` to generate a list of lists with the second coordinate (column) and to find the first coordinate we concatenate the row index calculated by `til` using a combination of each-right and each. We finish with `raze` to get a flat list of coordinates.
+We find the coordinates of all the special symbols (i.e. anything that is not `"."` and not in `.Q.n`). This is a frequently occurring technique: we use `where` to generate a list of lists with the second coordinate (column) and to find the first coordinate we concatenate the row index calculated by `til` using a combination of each right and each. We finish with `raze` to get a flat list of coordinates.
 ```q
 q)where each not x in .Q.n,"."
 `long$()
@@ -246,7 +246,7 @@ q)sp
 8 3
 8 5
 ```
-To find which numbers touch a special symbol, we check which symbol coordinates are `within` the ranges calculated by the common logic. However the required iterators are tricky due to how `within` works and what the shapes of the arguments look like. Iterators are always written deepest first. In our case the deepest operation is checking if the row coordinate is within the row coordinate range and whether the column coordinate is within the column coordinate range. Both arguments are lists of length two and we want to apply the operation pairwise so the first iterator is `'` (each). Next we want to check each symbol against each range, which assumes a Cartesian-product-like operation, which uses a combination of `/:` (each-right) and `\:` (each-left). Both orderings of these will process all pairings, but the result will be in row-first or column-first order depending on which one we use. This time we want one row for each number (right argument) so the ordering to use is `\:/:`.
+To find which numbers touch a special symbol, we check which symbol coordinates are `within` the ranges calculated by the common logic. However the required iterators are tricky due to how `within` works and what the shapes of the arguments look like. Iterators are always written deepest first. In our case the deepest operation is checking if the row coordinate is within the row coordinate range and whether the column coordinate is within the column coordinate range. Both arguments are lists of length two and we want to apply the operation pairwise so the first iterator is `'` (each). Next we want to check each symbol against each range, which assumes a Cartesian-product-like operation, which uses a combination of `/:` (each right) and `\:` (each left). Both orderings of these will process all pairings, but the result will be in row-first or column-first order depending on which one we use. This time we want one row for each number (right argument) so the ordering to use is `\:/:`.
 ```q
 q)sp within'\:/:xyr3
 11b 00b 01b 00b 01b 00b

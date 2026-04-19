@@ -7,7 +7,7 @@ w:3
 h:2
 img:enlist"123456789012"
 ```
-First we convert each character to a number. Note that this requires using `/:` (each-right)
+First we convert each character to a number. Note that this requires using `/:` (each right)
 because `"J"$` would normally try to parse the entire string as a single number.
 ```q
 q)"J"$/:raze img

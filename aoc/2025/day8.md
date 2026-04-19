@@ -132,10 +132,7 @@ q)adj
 18| 17 2
 19| 0 7 14
 ```
-We calculate the transitive closure of the adjacency map. We start by making single-node components
-of each node, then iterate by applying the adjacency map to the accumulator, removing any
-duplicates. We use the overload of `/` (over) that stops iterating when the accumulator no longer
-changes.
+We calculate the [transitive closure](../utils/patterns.md#transitive-closure) of the adjacency map:
 ```q
 q)nodes:enlist each ids
 q)net:{[adj;nodes]{distinct asc x}each nodes,'raze each adj nodes}[adj]/[nodes]
