@@ -1,3 +1,38 @@
+# Input parsing
+Some common patterns used for input parsing:
+* [`vs`](https://code.kx.com/q/ref/vs/) splits a string on a delimiter, similarly to Python's
+  `split`. The delimiter can be a character or string.
+```q
+q)","vs"1,2,3"
+,"1"
+,"2"
+,"3"
+q)"->"vs"1->2->3"
+,"1"
+,"2"
+,"3"
+```
+* Since we often have to do this with a list of strings, we usually have to combine `vs` with 
+  [`/:` (each right)](https://code.kx.com/q/wp/iterators/#each-left-each-right), which shifts it
+  down a level of nesting:
+```q
+q)","vs/:("1,2,3";"4,5,6")
+,"1" ,"2" ,"3"
+,"4" ,"5" ,"6"
+```
+* [`$` (cast)](https://code.kx.com/q/ref/tok/) converts between data types. The most common
+  variation that appears in puzzles is converting from strings to integers, which takes the form
+  `"J"$`. Note that `$` is an atomic operator, so it doesn't need modifiers like `/:` to expand on
+  a list - it keeps expanding until it finds a string, at which point it performs the conversion.
+  `J` indicates `long` as the target type, which is the default integer type in q. Other types may
+  be used in special scenarios, such as `X` to parse hexadecimal values, or `H` or `I` when memory
+  usage is important.
+```q
+q)"J"$","vs/:("1,2,3";"4,5,6")
+1 2 3
+4 5 6
+```
+
 # Range of integers
 `til` only generates integers from `0` to `n-1`. What if we need integers between the bounds `a` and
 `b`? We can still use `til` but we need to carefully choose the number of integers to generate and
@@ -123,9 +158,10 @@ q)a
 ```
 
 # Transitive closure
-The transitive closure of a mapping refers to the mapping of which elements can be reached from each
-starting element. The most common usage is finding which nodes are reachable from each node given
-the adjacency map of a graph.
+The transitive closure of a mapping refers to a derived mapping where each node is mapped to the
+nodes that can be reached from it by following the original mapping one or more times. The most
+common usage is expanding the adjacency map of a graph to include all indirect connections between
+nodes.
 
 Example mapping:
 ```q

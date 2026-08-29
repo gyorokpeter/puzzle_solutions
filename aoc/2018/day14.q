@@ -32,7 +32,7 @@ d14p2:{
     };
 
 /
-No imput file, the input is a string (interpreted as an integer for part 1).
+No input file, the input is a string (interpreted as an integer for part 1).
 x:"9";
 x2:"5";
 x3:"18";

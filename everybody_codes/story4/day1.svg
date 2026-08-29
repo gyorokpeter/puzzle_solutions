@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="210" height="100">
+<line x1="5" y1="50" x2="205" y2="50" stroke="black"></line>
+<path d="M 5 50 A 25 25 0 0 0 55 50" stroke="black" fill="none"></path>
+<path d="M 45 50 A 5 5 0 0 1 55 50" stroke="black" fill="none"></path>
+<path d="M 25 50 A 10 10 0 0 0 45 50" stroke="black" fill="none"></path>
+<path d="M 25 50 A 20 20 0 0 1 65 50" stroke="black" fill="none"></path>
+<path d="M 65 50 A 20 20 0 0 0 105 50" stroke="black" fill="none"></path>
+<path d="M 105 50 A 25 25 0 0 1 155 50" stroke="black" fill="none"></path>
+<path d="M 145 50 A 5 5 0 0 0 155 50" stroke="black" fill="none"></path>
+<path d="M 125 50 A 10 10 0 0 1 145 50" stroke="black" fill="none"></path>
+<path d="M 125 50 A 20 20 0 0 0 165 50" stroke="black" fill="none"></path>
+<path d="M 165 50 A 20 20 0 0 1 205 50" stroke="black" fill="none"></path></svg>
