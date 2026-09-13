@@ -58,7 +58,7 @@ if[`html in key`;
 .genarch.ops[`clearOutput]:{.genarch.clearOutput[]};
 
 .genarch.gui:{
-    if[`code in key x;if[0<count x`code; .genarch.setProgram[x`arch;x`code]; :.html.fastredirect["genarch"]]];
+    if[`code in key x;if[0<count x`code; .d.x:x;.genarch.setProgram[x`arch;"\r\n"vs x`code]; :.html.fastredirect["genarch"]]];
     if[`codebin in key x;if[0<count x`codebin; .genarch.setProgram[x`arch;`byte$x`codebin]; :.html.fastredirect["genarch"]]];
     if[(::)~.genarch.state;
         if[0<count key x; :.html.fastredirect["genarch"]];

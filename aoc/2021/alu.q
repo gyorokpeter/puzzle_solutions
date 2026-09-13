@@ -6,8 +6,8 @@
     }[];
 
 .alu.new:{
-    if[not 10h=type x; '"string expected"];
-    inp:(trim each"\n"vs x except"\r")except enlist"";
+    if[not all 10h=type each x; '"string list expected"];
+    inp:(trim x except\:"\r")except enlist"";
     cmds:{a:" "vs x;(`$a[0]),1_a}each inp;
     regs:`x`y`z`w!0 0 0 0;
     (`run;0;cmds;regs;0)};
